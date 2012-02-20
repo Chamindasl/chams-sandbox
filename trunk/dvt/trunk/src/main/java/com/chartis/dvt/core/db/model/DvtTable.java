@@ -50,4 +50,12 @@ public class DvtTable {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.lineOfBusiness != null ? this.lineOfBusiness.hashCode() : 0);
+        hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
+    }
 }
