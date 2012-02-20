@@ -13,31 +13,7 @@ public class ActivePolicyXmlWrapper {
 
     private Document document;
     private XPath xpath;
-    private String polOfficeCd;
-    private String policy_No;
-    private Integer certificateNo;
-    private String renlCertNo;
-    private String effDtSeqNo;
-
-    public String getPolOfficeCd() {
-        return polOfficeCd;
-    }
-
-    public Integer getCertificateNo() {
-        return certificateNo;
-    }
-
-    public String getPolicy_No() {
-        return policy_No;
-    }
-
-    public String getRenlCertNo() {
-        return renlCertNo;
-    }
-
-    public String getEffDtSeqNo() {
-        return effDtSeqNo;
-    }
+    private PolicyKeys policyKeys;
 
     public ActivePolicyXmlWrapper(final Document document) throws XPathExpressionException {
         notNull(document);
@@ -47,12 +23,11 @@ public class ActivePolicyXmlWrapper {
     }
 
     private void loadPolicyKeys() throws XPathExpressionException {
-        polOfficeCd = (String) xpath.compile("//pol_office_cd").evaluate(document, XPathConstants.STRING);
-        policy_No = (String) xpath.compile("//policy_no").evaluate(document, XPathConstants.STRING);
-        certificateNo = ((Double) xpath.compile("//certificate_no").evaluate(document, XPathConstants.NUMBER))
-                .intValue();
-        renlCertNo = (String) xpath.compile("//renl_cert_no").evaluate(document, XPathConstants.STRING);
-        effDtSeqNo = (String) xpath.compile("//eff_dt_seq_no").evaluate(document, XPathConstants.STRING);
+        policyKeys = new PolicyKeys();
+        policyKeys.setPolOfficeCd((String) xpath.compile("//pol_office_cd").evaluate(document, XPathConstants.STRING));
+        policyKeys.setPolicy_No((String) xpath.compile("//policy_no").evaluate(document, XPathConstants.STRING));
+        policyKeys.setCertificateNo(((Double) xpath.compile("//certificate_no").evaluate(document, XPathConstants.NUMBER)).intValue());
+        policyKeys.setRenlCertNo((String) xpath.compile("//renl_cert_no").evaluate(document, XPathConstants.STRING));
+        policyKeys.setEffDtSeqNo((String) xpath.compile("//eff_dt_seq_no").evaluate(document, XPathConstants.STRING));
     }
-
 }
