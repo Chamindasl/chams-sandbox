@@ -18,9 +18,9 @@ public class ActivePolicyXmlWrapperTest {
     @Test()
     public void testLoadKeys() throws Exception{
         final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(XmlUtils.stringToDoc(XmlUtils.TINY_DOC));
-        Assert.assertEquals("182001", wrapper.getPolOfficeCd());
-        Assert.assertEquals("AG000016", wrapper.getPolicy_No());
-        Assert.assertEquals(0, wrapper.getCertificateNo().intValue());
+        Assert.assertEquals("182001", wrapper.getPolicyKeys().getPolOfficeCd());
+        Assert.assertEquals("AG000016", wrapper.getPolicyKeys().getPolicy_No());
+        Assert.assertEquals(0, wrapper.getPolicyKeys().getCertificateNo().intValue());
     }
 
 }

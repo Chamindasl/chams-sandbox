@@ -1,5 +1,6 @@
 package com.chartis.dvt.core.xml.model;
 
+import com.chartis.dvt.core.model.PolicyKeys;
 import static com.chartis.dvt.core.util.Assert.*;
 
 import javax.xml.xpath.XPath;
@@ -14,6 +15,10 @@ public class ActivePolicyXmlWrapper {
     private Document document;
     private XPath xpath;
     private PolicyKeys policyKeys;
+
+    public PolicyKeys getPolicyKeys() {
+        return policyKeys;
+    }
 
     public ActivePolicyXmlWrapper(final Document document) throws XPathExpressionException {
         notNull(document);
