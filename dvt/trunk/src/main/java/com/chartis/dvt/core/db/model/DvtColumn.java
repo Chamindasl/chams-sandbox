@@ -1,7 +1,7 @@
 package com.chartis.dvt.core.db.model;
 
 public class DvtColumn {
-
+    
     private DvtTable dvtTable;
     private String name;
     private DataType dataType;

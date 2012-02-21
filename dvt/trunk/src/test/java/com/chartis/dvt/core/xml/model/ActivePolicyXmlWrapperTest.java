@@ -2,11 +2,11 @@ package com.chartis.dvt.core.xml.model;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import junit.framework.Assert;
+import static junit.framework.Assert.*;
 
 import org.junit.Test;
 
-import com.chartis.dvt.core.test.util.XmlUtils;
+import com.chartis.dvt.core.test.util.TestData;
 
 public class ActivePolicyXmlWrapperTest {
 
@@ -17,10 +17,17 @@ public class ActivePolicyXmlWrapperTest {
 
     @Test()
     public void testLoadKeys() throws Exception{
-        final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(XmlUtils.stringToDoc(XmlUtils.TINY_DOC));
-        Assert.assertEquals("182001", wrapper.getPolicyKeys().getPolOfficeCd());
-        Assert.assertEquals("AG000016", wrapper.getPolicyKeys().getPolicy_No());
-        Assert.assertEquals(0, wrapper.getPolicyKeys().getCertificateNo().intValue());
+        final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(TestData.stringToDoc(TestData.TINY_DOC));
+        assertEquals("182001", wrapper.getPolicyKeys().getPolOfficeCd());
+        assertEquals("AG000016", wrapper.getPolicyKeys().getPolicyNo());
+        assertEquals(0, wrapper.getPolicyKeys().getCertificateNo().intValue());
+    }
+
+    @Test()
+    public void getValue() throws Exception{
+        final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(TestData.stringToDoc(TestData.L3_DOC));
+        assertEquals("Name of Street", wrapper.getValue("/Policy/Client/Address/Street"));
+        
     }
 
 }

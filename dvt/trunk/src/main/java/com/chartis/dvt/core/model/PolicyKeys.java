@@ -9,18 +9,18 @@ package com.chartis.dvt.core.model;
  * @author chams
  */
 public class PolicyKeys {
-
+    
     private String polOfficeCd;
-    private String policy_No;
+    private String policyNo;
     private Integer certificateNo;
     private String renlCertNo;
-    private String effDtSeqNo;
+    private Integer effDtSeqNo;
 
     public void setCertificateNo(Integer certificateNo) {
         this.certificateNo = certificateNo;
     }
 
-    public void setEffDtSeqNo(String effDtSeqNo) {
+    public void setEffDtSeqNo(Integer effDtSeqNo) {
         this.effDtSeqNo = effDtSeqNo;
     }
 
@@ -28,8 +28,8 @@ public class PolicyKeys {
         this.polOfficeCd = polOfficeCd;
     }
 
-    public void setPolicy_No(String policy_No) {
-        this.policy_No = policy_No;
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
     }
 
     public void setRenlCertNo(String renlCertNo) {
@@ -41,7 +41,7 @@ public class PolicyKeys {
         return certificateNo;
     }
 
-    public String getEffDtSeqNo() {
+    public Integer getEffDtSeqNo() {
         return effDtSeqNo;
     }
 
@@ -49,8 +49,8 @@ public class PolicyKeys {
         return polOfficeCd;
     }
 
-    public String getPolicy_No() {
-        return policy_No;
+    public String getPolicyNo() {
+        return policyNo;
     }
 
     public String getRenlCertNo() {
