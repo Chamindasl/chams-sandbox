@@ -1,4 +1,4 @@
-package com.chartis.dvt.core.service.impl;
+package com.chartis.dvt.core.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,11 +9,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.chartis.dvt.core.dao.DvtColumnDao;
 import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.db.model.DvtColumn.DataType;
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 import com.chartis.dvt.core.db.model.DvtTable;
-import com.chartis.dvt.core.service.DvtColumnDao;
+import com.chartis.dvt.core.model.LineOfBusiness;
 
 public class DvtColumnDaoImpl implements DvtColumnDao {
 
@@ -23,15 +24,15 @@ public class DvtColumnDaoImpl implements DvtColumnDao {
         this.dataSource = dataSource;
     }
 
-    public List<DvtColumn> findAllByLob(final String lob) throws SQLException {
+    public List<DvtColumn> findAllByTable(final String table) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         final List<DvtColumn> dvtColumns = new ArrayList<DvtColumn>();
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement("select * from dvt_columns " + "where table_name = ? order by lob_name");
-            ps.setString(1, lob);
+            ps = con.prepareStatement("select * from dvt_columns where table_name = ? order by table_name");
+            ps.setString(1, table);
             rs = ps.executeQuery();
             DvtTable dvtTable = null;
             while (rs.next()) {
@@ -42,7 +43,29 @@ public class DvtColumnDaoImpl implements DvtColumnDao {
                     column.setDvtTable(dvtTable);
                     dvtTable.addDvtColumn(column);
                 }
+                dvtColumns.add(column);
+            }
+            return dvtColumns;
+        } finally {
+            rs.close();
+            ps.close();
+            con.close();
+        }
+    }
 
+    public List<DvtColumn> findAllByLob(final LineOfBusiness lob) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        final List<DvtColumn> dvtColumns = new ArrayList<DvtColumn>();
+        try {
+            con = dataSource.getConnection();
+            ps = con.prepareStatement("select * from dvt_tables where LOB_NAME = ? order by LOB_NAME");
+            ps.setString(1, lob.getName());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                final String tableName = rs.getString("TABLE_NAME");
+                dvtColumns.addAll(findAllByTable(tableName));
             }
             return dvtColumns;
         } finally {

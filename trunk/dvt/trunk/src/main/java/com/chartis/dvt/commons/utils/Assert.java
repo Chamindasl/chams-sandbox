@@ -1,7 +1,7 @@
-package com.chartis.dvt.core.util;
+package com.chartis.dvt.commons.utils;
 
 public class Assert {
-
+    
     private Assert() {
         
     }
