@@ -1,5 +1,7 @@
 package com.chartis.dvt.core.test.util;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -43,6 +45,13 @@ public class TestData {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
         final InputSource is = new InputSource(new StringReader(xml));
+        return builder.parse(is);
+    }
+
+    public static Document sampleDoc() throws Exception {
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+        final InputSource is = new InputSource(new FileReader(".//target/test-classes/SamplePolicy.xml"));
         return builder.parse(is);
     }
 

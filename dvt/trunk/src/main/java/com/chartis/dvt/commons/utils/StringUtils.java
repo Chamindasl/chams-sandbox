@@ -72,7 +72,29 @@ public class StringUtils {
         }
         return text;
     }
-
+    /**
+     * a safe way to concat strings.
+     * 
+     * @param os
+     * @return
+     */
+    public static String cat(final boolean space, final Object... os) {
+        final StringBuffer sb = new StringBuffer();
+        for (Object o : os) {
+            if (o instanceof Object[]) {
+                buildToToString(space, sb, o);
+                sb.append("[");
+                for (Object oo : (Object[]) o) {
+                    buildToToString(space, sb, oo);
+                    sb.append(",");
+                }
+                sb.append("]");
+            } else {
+                buildToToString(space, sb, o);
+            }
+        }
+        return sb.toString();
+    }
     /**
      * a safe way to concat strings.
      * 
@@ -80,31 +102,19 @@ public class StringUtils {
      * @return
      */
     public static String cat(final Object... os) {
-        final StringBuffer sb = new StringBuffer();
-        for (Object o : os) {
-            if (o instanceof Object[]) {
-                buildToToString(sb, o);
-                sb.append("[");
-                for (Object oo : (Object[]) o) {
-                    buildToToString(sb, oo);
-                    sb.append(",");
-                }
-                sb.append("]");
-            } else {
-                buildToToString(sb, o);
-            }
-        }
-        return sb.toString();
+        return cat(true, os);
     }
 
-    private static void buildToToString(final StringBuffer sb, Object o) {
+    private static void buildToToString(final boolean space, final StringBuffer sb, Object o) {
         if (o == null) {
             sb.append("[null]");
-        } else if (!allHasText(o.toString())) {
+        } else if (!hasText(o.toString())) {
             sb.append("[empty]");
         } else {
             sb.append(o.toString());
         }
-        sb.append(" ");
+        if (space) {
+            sb.append(" ");
+        }
     }
 }

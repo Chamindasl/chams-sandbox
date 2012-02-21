@@ -1,5 +1,7 @@
 package com.chartis.dvt.core.dao.impl;
 
+import static com.chartis.dvt.commons.utils.StringUtils.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -14,6 +17,8 @@ import com.chartis.dvt.core.model.PolicyKeys;
 
 class GoldRecordMapperSupport {
 
+    private static Logger logger = Logger.getLogger(GoldRecordMapperSupport.class .getName());
+    
     private String table;
     private DataSource dataSource;
     private PolicyKeys policyKeys;
@@ -50,7 +55,7 @@ class GoldRecordMapperSupport {
             sb.append("AND RENL_CERT_NO = ? ");
             sb.append("AND EFF_DT_SEQ_NO = ? ");
             sb.append("AND POL_OFFICE_CD = ? ");
-            System.out.println(sb.toString());
+            logger.info(cat(sb.toString()));
             ps = con.prepareStatement(sb.toString());
 
             ps.setString(1, policyKeys.getPolicyNo());
@@ -99,7 +104,7 @@ class GoldRecordMapperSupport {
             sb.append("AND A.POL_OFFICE_CD = ? ");
             sb.append("AND A.INS_NAME_CLIENT_NO = B.CLIENT_NO ");
             sb.append("AND B.PHONE_ID = C.PHONE_ID");
-            System.out.println(sb.toString());
+            logger.info(cat(sb.toString()));
 
             ps = con.prepareStatement(sb.toString());
 
@@ -149,7 +154,7 @@ class GoldRecordMapperSupport {
             sb.append("AND A.EFF_DT_SEQ_NO = ? ");
             sb.append("AND A.POL_OFFICE_CD = ? ");
             sb.append("AND A.INS_NAME_CLIENT_NO = B.CLIENT_NO");
-            System.out.println(sb.toString());
+            logger.info(cat(sb.toString()));
 
             ps = con.prepareStatement(sb.toString());
 
