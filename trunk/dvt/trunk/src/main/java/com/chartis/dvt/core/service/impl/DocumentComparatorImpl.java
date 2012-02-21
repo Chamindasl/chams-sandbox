@@ -1,27 +1,32 @@
 package com.chartis.dvt.core.service.impl;
 
+import static com.chartis.dvt.commons.utils.StringUtils.cat;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.w3c.dom.Document;
-import com.chartis.dvt.core.xml.model.ActivePolicyXmlWrapper;
+
 import com.chartis.dvt.core.dao.DvtColumnDao;
 import com.chartis.dvt.core.dao.GoldDao;
 import com.chartis.dvt.core.dao.impl.DvtColumnDaoImpl;
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
 import com.chartis.dvt.core.db.model.DvtColumn;
-import com.chartis.dvt.core.model.ComparisonResult;
 import com.chartis.dvt.core.model.LineOfBusiness;
 import com.chartis.dvt.core.model.PolicyKeys;
 import com.chartis.dvt.core.service.ColumnComparator;
 import com.chartis.dvt.core.service.DocumentComparator;
+import com.chartis.dvt.core.xml.model.ActivePolicyXmlWrapper;
 import com.chartis.dvt.jdbc.SimpleDataSourceProvider;
 
 public class DocumentComparatorImpl implements DocumentComparator{
+
+    private static Logger logger = Logger.getLogger(DocumentComparatorImpl.class .getName());
 
     private GoldDao goldDao;
     private DvtColumnDao dvtColumnDao;
@@ -63,7 +68,7 @@ public class DocumentComparatorImpl implements DocumentComparator{
             }
             
             final ColumnComparator columnComparator = new ColumnComparatorImpl();
-            System.out.println(columnComparator.compare(column, activePolicyXmlWrapper, dbResult));
+            logger.info(cat(columnComparator.compare(column, activePolicyXmlWrapper, dbResult)));
         }
     }
 }

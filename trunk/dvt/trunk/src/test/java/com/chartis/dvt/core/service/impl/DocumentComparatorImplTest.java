@@ -13,16 +13,16 @@ import com.chartis.dvt.core.test.util.TestData;
 
 public class DocumentComparatorImplTest {
 
-    private DocumentComparatorImpl comparatorImpl;
+    private DocumentComparatorImpl documentComparatorImpl;
 
     @Before
     public void setUp() throws Exception {
-        comparatorImpl = new DocumentComparatorImpl();
+        documentComparatorImpl = new DocumentComparatorImpl();
     }
 
     @Test
     public final void testCompare() throws XPathExpressionException, SQLException, Exception {
-        comparatorImpl.compare(TestData.stringToDoc(TestData.L3_DOC));
+        documentComparatorImpl.compare(TestData.sampleDoc());
     }
 
 }

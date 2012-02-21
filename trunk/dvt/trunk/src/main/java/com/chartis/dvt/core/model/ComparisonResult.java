@@ -4,22 +4,36 @@ import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 
 public class ComparisonResult {
 
-    private String db;
-    private String xml;
+    private String dbValue;
+    private String dbColumn;
+    private String xmlValue;
+    private String xmlElement;
     private EvaluationCode evaluationCode;
     private boolean match;
 
-    public String getDb() {
-        return db;
+    public String getDbValue() {
+        return dbValue;
     }
-    public void setDb(String db) {
-        this.db = db;
+    public void setDbValue(String dbValue) {
+        this.dbValue = dbValue;
     }
-    public String getXml() {
-        return xml;
+    public String getDbColumn() {
+        return dbColumn;
     }
-    public void setXml(String xml) {
-        this.xml = xml;
+    public void setDbColumn(String dbColumn) {
+        this.dbColumn = dbColumn;
+    }
+    public String getXmlValue() {
+        return xmlValue;
+    }
+    public void setXmlValue(String xmlValue) {
+        this.xmlValue = xmlValue;
+    }
+    public String getXmlElement() {
+        return xmlElement;
+    }
+    public void setXmlElement(String xmlElement) {
+        this.xmlElement = xmlElement;
     }
     public EvaluationCode getEvaluationCode() {
         return evaluationCode;
@@ -35,8 +49,21 @@ public class ComparisonResult {
     }
     @Override
     public String toString() {
-        return "ComparisonResult [db=" + db + ", xml=" + xml + ", evaluationCode=" + evaluationCode + ", match="
-                + match + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("ComparisonResult [dbValue=");
+        sb.append(dbValue);
+        sb.append(", xmlValue=");
+        sb.append(xmlValue);
+        sb.append(", dbColumn=");
+        sb.append(dbColumn);
+        sb.append(", xmlElement=");
+        sb.append(xmlElement);
+        sb.append(", evaluationCode=");
+        sb.append(evaluationCode);
+        sb.append(", match=");
+        sb.append(match);
+        sb.append("]");
+        return sb.toString();
     }
-    
+
 }
