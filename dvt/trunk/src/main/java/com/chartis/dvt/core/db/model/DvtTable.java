@@ -58,4 +58,5 @@ public class DvtTable {
         hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
+    
 }

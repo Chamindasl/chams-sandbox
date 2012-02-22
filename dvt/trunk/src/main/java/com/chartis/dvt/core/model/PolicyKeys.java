@@ -56,5 +56,22 @@ public class PolicyKeys {
     public String getRenlCertNo() {
         return renlCertNo;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("PolicyKeys [polOfficeCd=");
+        sb.append(polOfficeCd);
+        sb.append(", policyNo=");
+        sb.append(policyNo);
+        sb.append(", certificateNo=");
+        sb.append(certificateNo);
+        sb.append(", renlCertNo=");
+        sb.append(renlCertNo);
+        sb.append(", effDtSeqNo=");
+        sb.append(effDtSeqNo);
+        sb.append("]");
+        return sb.toString();
+    }
     
 }

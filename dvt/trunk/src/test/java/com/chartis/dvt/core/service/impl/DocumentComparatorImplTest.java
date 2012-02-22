@@ -1,7 +1,5 @@
 package com.chartis.dvt.core.service.impl;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -22,7 +20,7 @@ public class DocumentComparatorImplTest {
 
     @Test
     public final void testCompare() throws XPathExpressionException, SQLException, Exception {
-        documentComparatorImpl.compare(TestData.sampleDoc());
+        documentComparatorImpl.compare(TestData.sampleDoc(), "SamplePolicy.xml");
     }
 
 }

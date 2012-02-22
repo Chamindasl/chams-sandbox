@@ -1,5 +1,9 @@
 package com.chartis.dvt.core.xml.model;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.chartis.dvt.core.model.PolicyKeys;
 
 import static com.chartis.dvt.commons.utils.Assert.*;
@@ -16,6 +20,11 @@ public class ActivePolicyXmlWrapper {
     private Document document;
     private XPath xpath;
     private PolicyKeys policyKeys;
+    private Map<String, String> otherKeys; 
+
+    public Map<String, String> getOtherKeys() {
+        return otherKeys;
+    }
 
     public PolicyKeys getPolicyKeys() {
         return policyKeys;
@@ -26,6 +35,7 @@ public class ActivePolicyXmlWrapper {
         this.document = document;
         xpath = XPathFactory.newInstance().newXPath();
         loadPolicyKeys();
+        loadOtherKeys();
     }
 
     private void loadPolicyKeys() throws XPathExpressionException {
@@ -44,5 +54,11 @@ public class ActivePolicyXmlWrapper {
         } else {
             return result.toString();
         }
+    }
+    
+    private void loadOtherKeys() throws XPathExpressionException {
+        final Map <String, String> temp = new HashMap<String, String>();
+        temp.put("SourceSystemId", ((String) xpath.compile("//source_system_id").evaluate(document, XPathConstants.STRING)));
+        otherKeys = Collections.unmodifiableMap(temp);
     }
 }

@@ -8,6 +8,24 @@ public class DvtColumn {
     private String xmlElement;
     private String xpath;
     private EvaluationCode evaluationCode;
+    private String domainName;
+    private int columnOrder;
+
+    public int getColumnOrder() {
+        return columnOrder;
+    }
+
+    public void setColumnOrder(int columnOrder) {
+        this.columnOrder = columnOrder;
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
+    }
 
     public DvtTable getDvtTable() {
         return dvtTable;
@@ -62,9 +80,9 @@ public class DvtColumn {
     }
 
     public static enum EvaluationCode {
-        EXACT, ENRICHED, NO_COMPARE;
+        EXACT(1), ENRICHED(2), NO_COMPARE(2);
 
-        public static EvaluationCode get(int code) {
+        public static EvaluationCode get(final int code) {
             switch (code) {
             case 1:
                 return EXACT;
@@ -75,6 +93,15 @@ public class DvtColumn {
             default:
                 return NO_COMPARE;
             }
+        }
+        
+        private int code;
+        private EvaluationCode(final int code) {
+            this.code = code;
+        }
+        
+        public int getCode() {
+            return code;
         }
     }
 
