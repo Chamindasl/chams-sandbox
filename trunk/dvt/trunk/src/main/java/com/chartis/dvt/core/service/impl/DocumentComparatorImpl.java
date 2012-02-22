@@ -3,6 +3,7 @@ package com.chartis.dvt.core.service.impl;
 import static com.chartis.dvt.commons.utils.StringUtils.cat;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -13,10 +14,14 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.w3c.dom.Document;
 
 import com.chartis.dvt.core.dao.DvtColumnDao;
+import com.chartis.dvt.core.dao.DvtLogDao;
 import com.chartis.dvt.core.dao.GoldDao;
 import com.chartis.dvt.core.dao.impl.DvtColumnDaoImpl;
+import com.chartis.dvt.core.dao.impl.DvtLogDaoImpl;
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
 import com.chartis.dvt.core.db.model.DvtColumn;
+import com.chartis.dvt.core.db.model.DvtLog;
+import com.chartis.dvt.core.model.ComparisonResult;
 import com.chartis.dvt.core.model.LineOfBusiness;
 import com.chartis.dvt.core.model.PolicyKeys;
 import com.chartis.dvt.core.service.ColumnComparator;
@@ -30,9 +35,13 @@ public class DocumentComparatorImpl implements DocumentComparator{
 
     private GoldDao goldDao;
     private DvtColumnDao dvtColumnDao;
+    private DvtLogDao dvtLogDao;
 
     public DocumentComparatorImpl () {
-        
+        lookupServices();
+    }
+
+    private void lookupServices() {
         // this is ugly. we need a service locater 
         // For the now will do this.
         final GoldDaoImpl goldDaoImpl = new GoldDaoImpl();
@@ -43,19 +52,20 @@ public class DocumentComparatorImpl implements DocumentComparator{
         final DvtColumnDaoImpl dvtColumnDaoImpl = new DvtColumnDaoImpl();
         dvtColumnDaoImpl.setDataSource(dataSource);
         dvtColumnDao = dvtColumnDaoImpl;
+
+        final DvtLogDaoImpl dvtLogDaoImpl = new DvtLogDaoImpl();
+        dvtLogDaoImpl.setDataSource(dataSource);
+        dvtLogDao = dvtLogDaoImpl;
     }
 
-    public void compare(final Document document) throws XPathExpressionException, SQLException {
+    public void compare(final Document document, final String docName) throws XPathExpressionException, SQLException {
         
-        // create ActivePolicyXmlWrapper
-        // get major line
-        // load tables
-        // load record
-        final ActivePolicyXmlWrapper activePolicyXmlWrapper = new ActivePolicyXmlWrapper(document);
-        PolicyKeys policyKeys = activePolicyXmlWrapper.getPolicyKeys();
+        final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(document);
+        final PolicyKeys policyKeys = wrapper.getPolicyKeys();
         final int majorCode = goldDao.getMajorLine(policyKeys);
         final List<DvtColumn> columns = dvtColumnDao.findAllByLob(LineOfBusiness.COMMON);
-        LineOfBusiness lobbyCode = LineOfBusiness.byCode(majorCode);
+        final LineOfBusiness lobbyCode = LineOfBusiness.byCode(majorCode);
+        logger.info(cat("Fetched Plicy keys", policyKeys));
         if (lobbyCode != LineOfBusiness.COMMON) {
             columns.addAll(dvtColumnDao.findAllByLob(lobbyCode));
         }
@@ -67,8 +77,69 @@ public class DocumentComparatorImpl implements DocumentComparator{
                 dbResult = goldDao.getRecordAsMap(tableName, policyKeys);
             }
             
-            final ColumnComparator columnComparator = new ColumnComparatorImpl();
-            logger.info(cat(columnComparator.compare(column, activePolicyXmlWrapper, dbResult)));
+            final ComparisonResult comparisonResult = getComparisonResult(wrapper, dbResult, column);
+//            logger.info(cat(comparisonResult));
+            saveLog(docName, wrapper, column, comparisonResult, new Date());
+        }
+    }
+
+    private void saveLog(final String docName, final ActivePolicyXmlWrapper wrapper, DvtColumn column,
+            final ComparisonResult comparisonResult, final Date date) throws SQLException {
+        final DvtLog dvtLog = buildDvtLog(wrapper, column, comparisonResult, docName);
+        dvtLog.setTimestamp(date);
+        dvtLogDao.save(dvtLog);
+    }
+
+    private ComparisonResult getComparisonResult(final ActivePolicyXmlWrapper wrapper, Map<String, Object> dbResult,
+            DvtColumn column) throws XPathExpressionException {
+        final ColumnComparator columnComparator = new ColumnComparatorImpl();
+        final ComparisonResult comparisonResult = columnComparator.compare(column, wrapper, dbResult);
+        return comparisonResult;
+    }
+
+    private DvtLog buildDvtLog(final ActivePolicyXmlWrapper wrapper, final DvtColumn column,
+            final ComparisonResult comparisonResult, final String file) {
+        final DvtLog dvtLog = new DvtLog();
+        DvtLogBuilder.fillFrom(wrapper, dvtLog);
+        DvtLogBuilder.fillFrom(column, dvtLog);
+        DvtLogBuilder.fillFrom(comparisonResult, dvtLog);
+        dvtLog.setXmlFileName(file);
+        return dvtLog;
+    }
+    
+    private static class DvtLogBuilder {
+
+        static void fillFrom( final ActivePolicyXmlWrapper wrapper, final DvtLog dvtLog) {
+            dvtLog.setSourceSystemId(wrapper.getOtherKeys().get("SourceSystemId"));
+            dvtLog.setCertificateNo(wrapper.getPolicyKeys().getCertificateNo());
+            dvtLog.setEffDtSeq_no(wrapper.getPolicyKeys().getEffDtSeqNo());
+            dvtLog.setPolicyNo(wrapper.getPolicyKeys().getPolicyNo());
+            dvtLog.setPolOfficeCd(wrapper.getPolicyKeys().getPolOfficeCd());
+            dvtLog.setRenlCertNo(wrapper.getPolicyKeys().getRenlCertNo());
+            //TODO
+            dvtLog.setTransTypeDesc("New Business");
+        }
+        
+        static void fillFrom(final ComparisonResult comparisonResult, final DvtLog dvtLog) {
+            dvtLog.setColValue(comparisonResult.getDbValue());
+            dvtLog.setXmlElementValue(comparisonResult.getXmlValue());
+
+            // TODO
+            if (comparisonResult.isMatch()) {
+                dvtLog.setStatusCd("01");
+            } else {
+                dvtLog.setStatusCd("02");
+            }
+
+        }
+        
+        static void fillFrom(final DvtColumn column, final DvtLog dvtLog) {
+            dvtLog.setTableName(column.getDvtTable().getName());
+            dvtLog.setColName(column.getName());
+            dvtLog.setEvalCd(Integer.toString(column.getEvaluationCode().getCode()));
+            dvtLog.setDomainName(column.getDomainName());
+            dvtLog.setLobName(column.getDvtTable().getLineOfBusiness());
+            dvtLog.setColOrder(column.getColumnOrder());
         }
     }
 }

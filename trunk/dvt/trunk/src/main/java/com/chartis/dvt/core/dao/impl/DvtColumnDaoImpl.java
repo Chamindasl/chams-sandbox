@@ -47,9 +47,15 @@ public class DvtColumnDaoImpl implements DvtColumnDao {
             }
             return dvtColumns;
         } finally {
-            rs.close();
-            ps.close();
-            con.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
     }
 
@@ -69,9 +75,15 @@ public class DvtColumnDaoImpl implements DvtColumnDao {
             }
             return dvtColumns;
         } finally {
-            rs.close();
-            ps.close();
-            con.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
     }
 
@@ -85,6 +97,8 @@ public class DvtColumnDaoImpl implements DvtColumnDao {
             dvtColumn.setDataType(DataType.VARCHAR);
             dvtColumn.setXmlElement(rs.getString("XML_ELEMENT_NAME"));
             dvtColumn.setXpath(rs.getString("XML_XPATH"));
+            dvtColumn.setDomainName(rs.getString("DOMAIN_NAME"));
+            dvtColumn.setColumnOrder(rs.getInt("COL_ORDER"));
             dvtColumn.setEvaluationCode(EvaluationCode.get(rs.getInt("EVAL_CD")));
             dvtColumn.setDvtTable(dvtTable);
             return dvtColumn;
