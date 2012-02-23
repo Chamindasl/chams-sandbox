@@ -6,7 +6,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.model.ColumnComparisonResult;
-import com.chartis.dvt.core.xml.model.ActivePolicyXmlWrapper;
+import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 
 public interface ColumnComparator {
 

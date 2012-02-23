@@ -1,12 +1,14 @@
-package com.chartis.dvt.core.xml.model;
+package com.chartis.dvt.core.model.xml;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.chartis.dvt.core.model.PolicyKeys;
+import com.chartis.dvt.core.model.exception.DvtException;
 
 import static com.chartis.dvt.commons.utils.Assert.*;
+import static com.chartis.dvt.commons.utils.StringUtils.*;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -35,6 +37,9 @@ public class ActivePolicyXmlWrapper {
         this.document = document;
         xpath = XPathFactory.newInstance().newXPath();
         loadPolicyKeys();
+        if (!validatePolicyKeys()) {
+            throw new DvtException("Could not fetch the policy keys from the xml");
+        }
         loadOtherKeys();
     }
 
@@ -60,5 +65,11 @@ public class ActivePolicyXmlWrapper {
         final Map <String, String> temp = new HashMap<String, String>();
         temp.put("SourceSystemId", ((String) xpath.compile("//source_system_id").evaluate(document, XPathConstants.STRING)));
         otherKeys = Collections.unmodifiableMap(temp);
+    }
+    
+    private boolean validatePolicyKeys() {
+        return allHasText(policyKeys.getPolicyNo(),policyKeys.getPolOfficeCd(), policyKeys.getRenlCertNo())
+                && policyKeys.getCertificateNo() != null 
+                && policyKeys.getEffDtSeqNo() != null && policyKeys.getEffDtSeqNo() > 0;
     }
 }

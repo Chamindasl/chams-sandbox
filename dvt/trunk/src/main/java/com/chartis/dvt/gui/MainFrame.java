@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 import com.chartis.dvt.commons.utils.StringUtils;
 import com.chartis.dvt.commons.utils.XmlUtils;
 import com.chartis.dvt.core.model.DocumentComparisonResult;
+import com.chartis.dvt.core.model.exception.DvtException;
 import com.chartis.dvt.core.service.impl.DocumentComparatorImpl;
 
 /**
@@ -153,16 +154,18 @@ public class MainFrame extends javax.swing.JFrame {
                                 "Mismatches : (", result.getMisMatch(), "), ",
                                 "Neglects : (", result.getNiglect(), ") ]");
                         nameObject.setName(s);
-                    } catch (XPathExpressionException e) {
+                    } catch (final XPathExpressionException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XPATH ERROR]"));
-                    } catch (SQLException e) {
+                    } catch (final SQLException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [DB ERROR]"));
-                    } catch (ParserConfigurationException e) {
+                    } catch (final ParserConfigurationException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XML PARSE ERROR]"));
-                    } catch (SAXException e) {
+                    } catch (final SAXException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XML PARSE ERROR]"));
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [FILE ERROR]"));
+                    }catch (final DvtException e) {
+                        nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
                     }
                     newModelItems[i] = nameObject;
                 }
