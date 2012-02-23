@@ -6,6 +6,7 @@ import static junit.framework.Assert.*;
 
 import org.junit.Test;
 
+import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.test.util.TestData;
 
 public class ActivePolicyXmlWrapperTest {

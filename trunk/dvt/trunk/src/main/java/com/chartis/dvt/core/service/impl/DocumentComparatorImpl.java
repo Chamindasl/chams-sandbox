@@ -26,9 +26,10 @@ import com.chartis.dvt.core.model.ColumnComparisonResult;
 import com.chartis.dvt.core.model.DocumentComparisonResult;
 import com.chartis.dvt.core.model.LineOfBusiness;
 import com.chartis.dvt.core.model.PolicyKeys;
+import com.chartis.dvt.core.model.exception.DvtException;
+import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.service.ColumnComparator;
 import com.chartis.dvt.core.service.DocumentComparator;
-import com.chartis.dvt.core.xml.model.ActivePolicyXmlWrapper;
 import com.chartis.dvt.jdbc.SimpleDataSourceProvider;
 
 public class DocumentComparatorImpl implements DocumentComparator{
@@ -64,10 +65,13 @@ public class DocumentComparatorImpl implements DocumentComparator{
         
         final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(document);
         final PolicyKeys policyKeys = wrapper.getPolicyKeys();
-        final int majorCode = goldDao.getMajorLine(policyKeys);
+        final Integer majorCode = goldDao.getMajorLine(policyKeys);
+        if (majorCode == null) {
+            throw new DvtException("Could not fetch the mandatory Major Line Code");
+        }
         final List<DvtColumn> columns = dvtColumnDao.findAllByLob(LineOfBusiness.COMMON);
         final LineOfBusiness lobbyCode = LineOfBusiness.byCode(majorCode);
-        logger.info(cat("Fetched Plicy keys", policyKeys));
+        logger.info(cat("Fetched Policy keys", policyKeys));
         logger.info(cat("Fetched LineOfBusiness", lobbyCode));
         final Date now = new Date();
         final DocumentComparisonResult documentCompariosonResult = new DocumentComparisonResult();

@@ -9,8 +9,8 @@ import static com.chartis.dvt.commons.utils.StringUtils.*;
 import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 import com.chartis.dvt.core.model.ColumnComparisonResult;
+import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.service.ColumnComparator;
-import com.chartis.dvt.core.xml.model.ActivePolicyXmlWrapper;
 
 
 public class ColumnComparatorImpl implements ColumnComparator{
