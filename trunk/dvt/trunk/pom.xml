@@ -28,11 +28,6 @@
 			<version>7.0.25</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-		<dependency>
 			<groupId>com.sybase.jdbc3.jdbc</groupId>
 			<artifactId>jconn3</artifactId>
 			<version>6.05</version>

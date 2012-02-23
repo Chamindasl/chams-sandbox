@@ -57,7 +57,7 @@ public class DvtLogDaoImpl extends AbstractDao implements DvtLogDao{
         ps.setString(17, log.getLobName());
         ps.setInt(18, log.getColOrder());
         ps.setString(19, log.getSourceSystemId());
-        ps.setDate(20,  new java.sql.Date(log.getTimestamp().getTime()));
+        ps.setTimestamp(20,  new java.sql.Timestamp(log.getTimestamp().getTime()));
     }
 
 }

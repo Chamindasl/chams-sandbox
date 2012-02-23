@@ -6,7 +6,9 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.w3c.dom.Document;
 
+import com.chartis.dvt.core.model.DocumentComparisonResult;
+
 public interface DocumentComparator {
-    void compare(final Document document, final String docName)
+    DocumentComparisonResult compare(final Document document, final String docName)
             throws XPathExpressionException, SQLException;
 }

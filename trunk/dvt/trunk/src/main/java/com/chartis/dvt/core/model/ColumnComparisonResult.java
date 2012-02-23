@@ -2,7 +2,7 @@ package com.chartis.dvt.core.model;
 
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 
-public class ComparisonResult {
+public class ColumnComparisonResult {
 
     private String dbValue;
     private String dbColumn;
