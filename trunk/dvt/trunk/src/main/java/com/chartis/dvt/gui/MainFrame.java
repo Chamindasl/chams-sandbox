@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -155,7 +156,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 "Neglects : (", result.getNiglect(), ") ]");
                         nameObject.setName(s);
                     } catch (final XPathExpressionException e) {
-                        nameObject.setName(StringUtils.cat(false, file.getName(), " [XPATH ERROR]"));
+                        nameObject.setName(StringUtils.cat(false, file.getName(), " [XPATH ERROR]"));                        
                     } catch (final SQLException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [DB ERROR]"));
                     } catch (final ParserConfigurationException e) {
@@ -164,7 +165,12 @@ public class MainFrame extends javax.swing.JFrame {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XML PARSE ERROR]"));
                     } catch (final IOException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [FILE ERROR]"));
-                    }catch (final DvtException e) {
+                    } catch (final DvtException e) {
+                        nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
+                    } catch (final Exception e) {
+                        JOptionPane.showMessageDialog(MainFrame.this,
+                                e.getMessage(),
+                                StringUtils.cat("Unknow Error for the file", file.getName()),                                JOptionPane.ERROR_MESSAGE);
                         nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
                     }
                     newModelItems[i] = nameObject;
