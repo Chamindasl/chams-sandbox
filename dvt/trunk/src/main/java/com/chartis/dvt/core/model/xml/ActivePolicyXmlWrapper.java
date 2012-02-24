@@ -19,6 +19,12 @@ import org.w3c.dom.Document;
 
 public class ActivePolicyXmlWrapper {
 
+    public static String XP_POLICY_OFFICE_CD = "//GDSTransmissionRq/BookingPolicy/PolOfficeCd";
+    public static String XP_POLICY_NO = "//GDSTransmissionRq/BookingPolicy/PolicyNo";
+    public static String XP_POLICY_CERTIFICATE_NO = "//GDSTransmissionRq/BookingPolicy/CertificateNo";
+    public static String XP_POLICY_RENL_CERT_NO = "//GDSTransmissionRq/BookingPolicy/RenlCertNo";
+    public static String XP_POLICY_EFF_DT_SEQ_NO = "//GDSTransmissionRq/BookingPolicy/EffDtSeqNo";
+
     private Document document;
     private XPath xpath;
     private PolicyKeys policyKeys;
@@ -45,6 +51,11 @@ public class ActivePolicyXmlWrapper {
 
     private void loadPolicyKeys() throws XPathExpressionException {
         policyKeys = new PolicyKeys();
+//        policyKeys.setPolOfficeCd((String) xpath.compile(XP_POLICY_OFFICE_CD).evaluate(document, XPathConstants.STRING));
+//        policyKeys.setPolicyNo((String) xpath.compile(XP_POLICY_NO).evaluate(document, XPathConstants.STRING));
+//        policyKeys.setCertificateNo(((Double) xpath.compile(XP_POLICY_CERTIFICATE_NO).evaluate(document, XPathConstants.NUMBER)).intValue());
+//        policyKeys.setRenlCertNo((String) xpath.compile(XP_POLICY_RENL_CERT_NO).evaluate(document, XPathConstants.STRING));
+//        policyKeys.setEffDtSeqNo(((Double) xpath.compile(XP_POLICY_EFF_DT_SEQ_NO).evaluate(document, XPathConstants.NUMBER)).intValue());
         policyKeys.setPolOfficeCd((String) xpath.compile("//pol_office_cd").evaluate(document, XPathConstants.STRING));
         policyKeys.setPolicyNo((String) xpath.compile("//policy_no").evaluate(document, XPathConstants.STRING));
         policyKeys.setCertificateNo(((Double) xpath.compile("//certificate_no").evaluate(document, XPathConstants.NUMBER)).intValue());
@@ -68,7 +79,7 @@ public class ActivePolicyXmlWrapper {
     }
     
     private boolean validatePolicyKeys() {
-        return allHasText(policyKeys.getPolicyNo(),policyKeys.getPolOfficeCd(), policyKeys.getRenlCertNo())
+        return allHasText(policyKeys.getPolicyNo(), policyKeys.getPolOfficeCd(), policyKeys.getRenlCertNo())
                 && policyKeys.getCertificateNo() != null 
                 && policyKeys.getEffDtSeqNo() != null && policyKeys.getEffDtSeqNo() > 0;
     }

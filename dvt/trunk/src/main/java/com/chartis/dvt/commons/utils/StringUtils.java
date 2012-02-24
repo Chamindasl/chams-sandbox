@@ -30,7 +30,7 @@ public class StringUtils {
      */
     public static boolean allHasText(final String... ss) {
         for (String s : ss) {
-            if (hasText(s)) {
+            if (!hasText(s)) {
                 return false;
             }
         }
