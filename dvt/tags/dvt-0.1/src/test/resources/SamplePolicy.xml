@@ -1,0 +1,55 @@
+<Policy>
+   <pol_office_cd>182001</pol_office_cd>		               
+   <policy_no>AG000016</policy_no>                                
+   <certificate_no>0</certificate_no>                             
+   <renl_cert_no>0004</renl_cert_no>                              
+   <eff_dt_seq_no>2000110700</eff_dt_seq_no>                      
+   <pol_chnge_eff_date>2000-11-07 00:00:00.0</pol_chnge_eff_date> 
+   <pol_chnge_exp_date>2001-11-08 00:00:00.0</pol_chnge_exp_date> 
+   <pol_status_cd>A</pol_status_cd>                               
+   <record_type_cd>N</record_type_cd>                             
+   <shell_policy_fg>Y</shell_policy_fg>                           
+   <und_yr_no>8</und_yr_no>                                       
+   <src_pol_ref_1_id></src_pol_ref_1_id>                          
+   <src_pol_ref_2_id></src_pol_ref_2_id>                          
+   <source_system_id>CO</source_system_id>                        
+   <userid_cd>COMPU01</userid_cd>                                 
+   <timestamp>2001-12-03 14:30:00.0</timestamp>
+   <major_line_cd>01</major_line_cd>                   
+   <Client>
+        <pol_office_cd>182001</pol_office_cd>                       
+        <client_no>65925</client_no>                               
+        <ref_group_cd>182000</ref_group_cd>                        
+        <client_last_nm>BAKKER</client_last_nm>                    
+        <last_name_extn></last_name_extn>                          
+        <client_first_nm>PETER</client_first_nm>                   
+        <client_middle_nm></client_middle_nm>                      
+        <client_title_txt>MR</client_title_txt>                    
+        <client_salary_amt>18000.00</client_salary_amt>            
+        <client_birth_dt>1955-11-08 00:00:00.0</client_birth_dt>   
+        <driver_occ_gp_cd>00</driver_occ_gp_cd>                    
+        <ind_sex_cd>M</ind_sex_cd>                                 
+        <marital_stat_cd>M</marital_stat_cd>                       
+        <nationality>06</nationality>                              
+        <source_system_id>CO</source_system_id>                    
+        <userid_cd>COMPU01</userid_cd>                             
+        <timestamp>2001-12-03 14:30:00.0</timestamp>               
+        <employer_name>CTOM</employer_name>                        
+        <employer_name_extn></employer_name_extn>                  
+        <client_last_nm_id>20</client_last_nm_id>                  
+        <client_first_nm_id>20</client_first_nm_id>                
+        <client_race>02</client_race>                              
+        <occupation_yrs>8</occupation_yrs>                         
+        <client_aux_1_dat></client_aux_1_dat>                      
+        <client_aux_2_dat></client_aux_2_dat>                      
+        <client_aux_3_dat></client_aux_3_dat>                      
+        <client_aux_4_dat></client_aux_4_dat>                      
+        <occupation_cd>55</occupation_cd>                          
+        <lcl_industry_cd>100</lcl_industry_cd>                     
+        <Phone>                                     
+            <number_type_cd>P</number_type_cd>        
+            <number_plac_nam_cd>X</number_plac_nam_cd>
+            <phone_no>878-1000</phone_no>             
+        </Phone>                                    
+  </Client>
+</Policy>
