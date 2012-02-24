@@ -12,8 +12,8 @@
 	<url>http://maven.apache.org</url>
 	<scm>
 		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</connection>
-		<developerConnection>https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</developerConnection>
-		<url>svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</url>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</url>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
