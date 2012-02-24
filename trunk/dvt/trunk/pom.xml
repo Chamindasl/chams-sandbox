@@ -11,7 +11,7 @@
 	<name>CTOM-Central, Data Validation Tool</name>
 	<url>http://maven.apache.org</url>
 	<scm>
-		<connection>scm:svn:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</connection>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</connection>
 		<developerConnection>https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</developerConnection>
 		<url>svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</url>
 	</scm>
