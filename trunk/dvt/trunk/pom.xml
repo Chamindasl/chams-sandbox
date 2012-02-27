@@ -4,15 +4,15 @@
 
 	<groupId>com.chartis</groupId>
 	<artifactId>dvt</artifactId>
-	<version>0.2</version>
+	<version>0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>CTOM-Central, Data Validation Tool</name>
 	<url>http://maven.apache.org</url>
 	<scm>
-		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</connection>
-		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</developerConnection>
-		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</url>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</connection>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</url>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
