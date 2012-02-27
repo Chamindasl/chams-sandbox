@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.chartis.dvt.jdbc;
+package com.chartis.dvt.core.jdbc;
 
 import java.util.ResourceBundle;
 import org.apache.tomcat.jdbc.pool.DataSource;
