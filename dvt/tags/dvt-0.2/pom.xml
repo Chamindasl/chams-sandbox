@@ -1,0 +1,94 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.chartis</groupId>
+	<artifactId>dvt</artifactId>
+	<version>0.2</version>
+	<packaging>jar</packaging>
+
+	<name>CTOM-Central, Data Validation Tool</name>
+	<url>http://maven.apache.org</url>
+	<scm>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</connection>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/tags/dvt-0.2</url>
+	</scm>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>chams-sandbox.googlecode.com</id>
+			<url>svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/m2/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>chams-sandbox.googlecode.com</id>
+			<url>svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/m2/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>7.0.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sybase.jdbc3.jdbc</groupId>
+			<artifactId>jconn3</artifactId>
+			<version>6.05</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.code.maven-svn-wagon</groupId>
+						<artifactId>maven-svn-wagon</artifactId>
+						<version>1.4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.chartis.dvt.gui.MainFrame</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>mvnsearch</id>
+			<url>http://www.mvnsearch.org/maven2/</url>
+		</repository>
+	</repositories>
+
+</project>
