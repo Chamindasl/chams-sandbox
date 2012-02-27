@@ -10,15 +10,12 @@ import java.util.logging.Logger;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.w3c.dom.Document;
 
+import com.chartis.dvt.core.DaoServiceLocator;
 import com.chartis.dvt.core.dao.DvtColumnDao;
 import com.chartis.dvt.core.dao.DvtLogDao;
 import com.chartis.dvt.core.dao.GoldDao;
-import com.chartis.dvt.core.dao.impl.DvtColumnDaoImpl;
-import com.chartis.dvt.core.dao.impl.DvtLogDaoImpl;
-import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
 import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 import com.chartis.dvt.core.db.model.DvtLog;
@@ -30,39 +27,29 @@ import com.chartis.dvt.core.model.exception.DvtException;
 import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.service.ColumnComparator;
 import com.chartis.dvt.core.service.DocumentComparator;
-import com.chartis.dvt.jdbc.SimpleDataSourceProvider;
 
-public class DocumentComparatorImpl implements DocumentComparator{
+public class DocumentComparatorImpl implements DocumentComparator {
 
-    private static Logger logger = Logger.getLogger(DocumentComparatorImpl.class .getName());
+    private static Logger logger = Logger.getLogger(DocumentComparatorImpl.class.getName());
 
     private GoldDao goldDao;
     private DvtColumnDao dvtColumnDao;
     private DvtLogDao dvtLogDao;
 
-    public DocumentComparatorImpl () {
+    public DocumentComparatorImpl() {
         lookupServices();
     }
 
     private void lookupServices() {
-        // this is ugly. we need a service locater 
-        // For the now will do this.
-        final GoldDaoImpl goldDaoImpl = new GoldDaoImpl();
-        final DataSource dataSource = new SimpleDataSourceProvider().getDataSource();
-        goldDaoImpl.setDataSource(dataSource);
-        goldDao = goldDaoImpl;
-        
-        final DvtColumnDaoImpl dvtColumnDaoImpl = new DvtColumnDaoImpl();
-        dvtColumnDaoImpl.setDataSource(dataSource);
-        dvtColumnDao = dvtColumnDaoImpl;
-
-        final DvtLogDaoImpl dvtLogDaoImpl = new DvtLogDaoImpl();
-        dvtLogDaoImpl.setDataSource(dataSource);
-        dvtLogDao = dvtLogDaoImpl;
+        final DaoServiceLocator serviceLocator = DaoServiceLocator.getInstance();
+        goldDao = serviceLocator.service(GoldDao.class);
+        dvtColumnDao = serviceLocator.service(DvtColumnDao.class);
+        dvtLogDao = serviceLocator.service(DvtLogDao.class);
     }
 
-    public DocumentComparisonResult compare(final Document document, final String docName) throws XPathExpressionException, SQLException {
-        
+    public DocumentComparisonResult compare(final Document document, final String docName)
+            throws XPathExpressionException, SQLException {
+
         final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(document);
         final PolicyKeys policyKeys = wrapper.getPolicyKeys();
         final Integer majorCode = goldDao.getMajorLine(policyKeys);
@@ -81,13 +68,13 @@ public class DocumentComparatorImpl implements DocumentComparator{
             columns.addAll(dvtColumnDao.findAllByLob(lobbyCode));
         }
         String tableName = "";
-        Map <String, Object> dbResult = null;
+        Map<String, Object> dbResult = null;
         for (DvtColumn column : columns) {
             if (!tableName.equalsIgnoreCase(column.getDvtTable().getName())) {
                 tableName = column.getDvtTable().getName();
                 dbResult = goldDao.getRecordAsMap(tableName, policyKeys);
             }
-            
+
             final ColumnComparisonResult comparisonResult = getComparisonResult(wrapper, dbResult, column);
             updateDocumentComparisonResult(documentCompariosonResult, comparisonResult);
             saveLog(docName, wrapper, column, comparisonResult, now);
@@ -97,7 +84,7 @@ public class DocumentComparatorImpl implements DocumentComparator{
 
     private void updateDocumentComparisonResult(final DocumentComparisonResult documentCompariosonResult,
             final ColumnComparisonResult comparisonResult) {
-        if (comparisonResult.getEvaluationCode()== EvaluationCode.EXACT) {
+        if (comparisonResult.getEvaluationCode() == EvaluationCode.EXACT) {
             if (comparisonResult.isMatch()) {
                 documentCompariosonResult.increaseExactMatch();
             } else {
@@ -115,8 +102,8 @@ public class DocumentComparatorImpl implements DocumentComparator{
         dvtLogDao.save(dvtLog);
     }
 
-    private ColumnComparisonResult getComparisonResult(final ActivePolicyXmlWrapper wrapper, Map<String, Object> dbResult,
-            DvtColumn column) throws XPathExpressionException {
+    private ColumnComparisonResult getComparisonResult(final ActivePolicyXmlWrapper wrapper,
+            Map<String, Object> dbResult, DvtColumn column) throws XPathExpressionException {
         final ColumnComparator columnComparator = new ColumnComparatorImpl();
         final ColumnComparisonResult comparisonResult = columnComparator.compare(column, wrapper, dbResult);
         return comparisonResult;
@@ -131,20 +118,20 @@ public class DocumentComparatorImpl implements DocumentComparator{
         dvtLog.setXmlFileName(file);
         return dvtLog;
     }
-    
+
     private static class DvtLogBuilder {
 
-        static void fillFrom( final ActivePolicyXmlWrapper wrapper, final DvtLog dvtLog) {
+        static void fillFrom(final ActivePolicyXmlWrapper wrapper, final DvtLog dvtLog) {
             dvtLog.setSourceSystemId(wrapper.getOtherKeys().get("SourceSystemId"));
             dvtLog.setCertificateNo(wrapper.getPolicyKeys().getCertificateNo());
             dvtLog.setEffDtSeq_no(wrapper.getPolicyKeys().getEffDtSeqNo());
             dvtLog.setPolicyNo(wrapper.getPolicyKeys().getPolicyNo());
             dvtLog.setPolOfficeCd(wrapper.getPolicyKeys().getPolOfficeCd());
             dvtLog.setRenlCertNo(wrapper.getPolicyKeys().getRenlCertNo());
-            //TODO
+            // TODO
             dvtLog.setTransTypeDesc("New Business");
         }
-        
+
         static void fillFrom(final ColumnComparisonResult comparisonResult, final DvtLog dvtLog) {
             dvtLog.setColValue(comparisonResult.getDbValue());
             dvtLog.setXmlElementValue(comparisonResult.getXmlValue());
@@ -157,7 +144,7 @@ public class DocumentComparatorImpl implements DocumentComparator{
             }
 
         }
-        
+
         static void fillFrom(final DvtColumn column, final DvtLog dvtLog) {
             dvtLog.setTableName(column.getDvtTable().getName());
             dvtLog.setColName(column.getName());

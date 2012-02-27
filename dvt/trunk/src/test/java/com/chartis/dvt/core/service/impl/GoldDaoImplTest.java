@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
-import com.chartis.dvt.jdbc.SimpleDataSourceProvider;
+import com.chartis.dvt.core.jdbc.SimpleDataSourceProvider;
 
 public class GoldDaoImplTest {
 

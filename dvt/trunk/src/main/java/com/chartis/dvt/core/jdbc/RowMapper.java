@@ -1,4 +1,4 @@
-package com.chartis.dvt.jdbc;
+package com.chartis.dvt.core.jdbc;
 
 import java.sql.ResultSet;
 
