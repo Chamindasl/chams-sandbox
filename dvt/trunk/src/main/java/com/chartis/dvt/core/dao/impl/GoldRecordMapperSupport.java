@@ -15,6 +15,11 @@ import javax.sql.DataSource;
 
 import com.chartis.dvt.core.model.PolicyKeys;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 class GoldRecordMapperSupport {
 
     private static Logger logger = Logger.getLogger(GoldRecordMapperSupport.class .getName());

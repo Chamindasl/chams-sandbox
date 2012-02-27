@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.chartis.dvt.core.dao.impl;
 
 import java.sql.Connection;
@@ -16,7 +12,8 @@ import com.chartis.dvt.core.model.PolicyKeys;
 
 /**
  * 
- * @author chams
+ * @author CHAMINDA.AMARASINGHE
+ *
  */
 public class GoldDaoImpl extends AbstractDao implements GoldDao {
 

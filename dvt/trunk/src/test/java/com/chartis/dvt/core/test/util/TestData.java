@@ -1,6 +1,5 @@
 package com.chartis.dvt.core.test.util;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.StringReader;
 
@@ -13,6 +12,11 @@ import org.xml.sax.InputSource;
 
 import com.chartis.dvt.core.model.PolicyKeys;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 @Ignore
 public class TestData {
 
@@ -40,7 +44,7 @@ public class TestData {
     private TestData() {
 
     }
-
+    
     public static Document stringToDoc(final String xml) throws Exception {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();

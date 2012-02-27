@@ -12,6 +12,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class XmlUtils {
 
     /**

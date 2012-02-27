@@ -42,6 +42,11 @@ import com.chartis.dvt.core.service.impl.DocumentComparatorImpl;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 @SuppressWarnings("serial")
 public class MainFrame extends javax.swing.JFrame {
     private JPanel jPanel1;

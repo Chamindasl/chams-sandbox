@@ -18,6 +18,11 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class ActivePolicyXmlWrapper {
 
     private final static ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("xpath");

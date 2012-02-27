@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.chartis.dvt.core.model;
 
 /**
+ * 
+ * @author CHAMINDA.AMARASINGHE
  *
- * @author chams
  */
 public class PolicyKeys {
     

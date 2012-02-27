@@ -2,6 +2,11 @@ package com.chartis.dvt.core.model;
 
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class ColumnComparisonResult {
 
     private String dbValue;

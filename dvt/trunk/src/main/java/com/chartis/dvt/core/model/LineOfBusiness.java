@@ -1,5 +1,10 @@
 package com.chartis.dvt.core.model;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public enum LineOfBusiness {
 
     AUTO("AUTO"),

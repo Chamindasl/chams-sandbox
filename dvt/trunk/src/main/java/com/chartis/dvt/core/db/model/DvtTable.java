@@ -3,6 +3,11 @@ package com.chartis.dvt.core.db.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DvtTable {
 
     private String lineOfBusiness;
