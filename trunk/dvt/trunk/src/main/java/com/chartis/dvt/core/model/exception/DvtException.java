@@ -1,5 +1,10 @@
 package com.chartis.dvt.core.model.exception;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 @SuppressWarnings("serial")
 public class DvtException extends RuntimeException{
 

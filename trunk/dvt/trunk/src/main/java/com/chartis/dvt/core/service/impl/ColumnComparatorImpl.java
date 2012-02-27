@@ -12,7 +12,11 @@ import com.chartis.dvt.core.model.ColumnComparisonResult;
 import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.service.ColumnComparator;
 
-
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class ColumnComparatorImpl implements ColumnComparator{
     
     private static Logger logger = Logger.getLogger(ColumnComparatorImpl.class .getName());

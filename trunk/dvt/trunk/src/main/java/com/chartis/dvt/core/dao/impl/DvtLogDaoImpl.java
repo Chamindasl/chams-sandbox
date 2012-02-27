@@ -2,7 +2,6 @@ package com.chartis.dvt.core.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,6 +9,11 @@ import com.chartis.dvt.core.dao.AbstractDao;
 import com.chartis.dvt.core.dao.DvtLogDao;
 import com.chartis.dvt.core.db.model.DvtLog;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DvtLogDaoImpl extends AbstractDao implements DvtLogDao{
 
     public void save(List<DvtLog> log) {

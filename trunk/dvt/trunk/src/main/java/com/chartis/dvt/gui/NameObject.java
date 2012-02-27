@@ -1,5 +1,10 @@
 package com.chartis.dvt.gui;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class NameObject {
 
     private String name;

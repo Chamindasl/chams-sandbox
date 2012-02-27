@@ -5,6 +5,7 @@
 package com.chartis.dvt.core.jdbc;
 
 import java.util.ResourceBundle;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -13,6 +14,7 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
  * @author chams
  */
 public class SimpleDataSourceProvider implements DataSourceProvider {
+
 
     public DataSource getDataSource() {
         final ResourceBundle bundle = java.util.ResourceBundle.getBundle("jdbc");

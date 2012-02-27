@@ -9,6 +9,11 @@ import org.junit.Test;
 
 import com.chartis.dvt.core.test.util.TestData;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DocumentComparatorImplTest {
 
     private DocumentComparatorImpl documentComparatorImpl;

@@ -9,6 +9,11 @@ import org.junit.Test;
 import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.test.util.TestData;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class ActivePolicyXmlWrapperTest {
 
     @Test(expected = AssertionError.class)

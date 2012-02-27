@@ -2,6 +2,11 @@ package com.chartis.dvt.core.db.model;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DvtLog {
 
     private String xmlFileName;

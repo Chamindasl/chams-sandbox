@@ -11,6 +11,11 @@ import org.junit.Test;
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
 import com.chartis.dvt.core.jdbc.SimpleDataSourceProvider;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class GoldDaoImplTest {
 
     private GoldDaoImpl goldDaoImpl;

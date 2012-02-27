@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.chartis.dvt.core.db.model.DvtColumn;
-import com.chartis.dvt.core.db.model.DvtTable;
 import com.chartis.dvt.core.model.LineOfBusiness;
 
 /**

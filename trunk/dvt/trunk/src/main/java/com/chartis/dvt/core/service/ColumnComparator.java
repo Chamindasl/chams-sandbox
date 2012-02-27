@@ -8,6 +8,11 @@ import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.model.ColumnComparisonResult;
 import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public interface ColumnComparator {
 
     ColumnComparisonResult compare(final DvtColumn column, final ActivePolicyXmlWrapper policyXmlWrapper,

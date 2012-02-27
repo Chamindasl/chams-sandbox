@@ -28,6 +28,11 @@ import com.chartis.dvt.core.model.xml.ActivePolicyXmlWrapper;
 import com.chartis.dvt.core.service.ColumnComparator;
 import com.chartis.dvt.core.service.DocumentComparator;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DocumentComparatorImpl implements DocumentComparator {
 
     private static Logger logger = Logger.getLogger(DocumentComparatorImpl.class.getName());

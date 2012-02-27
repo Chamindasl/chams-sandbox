@@ -10,8 +10,9 @@ import java.util.Map;
 import com.chartis.dvt.core.model.PolicyKeys;
 
 /**
+ * 
+ * @author CHAMINDA.AMARASINGHE
  *
- * @author chams
  */
 public interface GoldDao {
     Integer getMajorLine(final PolicyKeys policyKeys) throws SQLException;

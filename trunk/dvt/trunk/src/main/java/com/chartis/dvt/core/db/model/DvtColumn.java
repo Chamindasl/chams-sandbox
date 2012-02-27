@@ -1,5 +1,10 @@
 package com.chartis.dvt.core.db.model;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DvtColumn {
     
     private DvtTable dvtTable;

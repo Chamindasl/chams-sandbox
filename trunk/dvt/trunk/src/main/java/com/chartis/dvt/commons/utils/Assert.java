@@ -1,5 +1,10 @@
 package com.chartis.dvt.commons.utils;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class Assert {
     
     private Assert() {

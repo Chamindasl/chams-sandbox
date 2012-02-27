@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.chartis.dvt.core.db.model.DvtLog;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public interface DvtLogDao {
 
     void save(final List<DvtLog> log);

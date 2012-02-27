@@ -16,6 +16,11 @@ import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 import com.chartis.dvt.core.db.model.DvtTable;
 import com.chartis.dvt.core.model.LineOfBusiness;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DvtColumnDaoImpl implements DvtColumnDao {
 
     private DataSource dataSource;

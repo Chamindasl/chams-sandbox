@@ -2,6 +2,11 @@ package com.chartis.dvt.core.model;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author CHAMINDA.AMARASINGHE
+ *
+ */
 public class DocumentComparisonResult {
 
     private String docName;
