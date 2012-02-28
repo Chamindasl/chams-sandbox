@@ -4,15 +4,15 @@
 
 	<groupId>com.chartis</groupId>
 	<artifactId>dvt</artifactId>
-	<version>0.3-with-file-write</version>
+	<version>0.4-with-file-write-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>CTOM-Central, Data Validation Tool</name>
 	<url>http://maven.apache.org</url>
 	<scm>
-		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/tags/dvt-0.3-with-file-write</connection>
-		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/tags/dvt-0.3-with-file-write</developerConnection>
-		<url>https://chams-sandbox.googlecode.com/svn/tags/dvt-0.3-with-file-write</url>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</connection>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</url>
 	</scm>
 	<developers>
 		<developer>
