@@ -2,12 +2,8 @@ package com.chartis.dvt.core;
 
 import static com.chartis.dvt.commons.utils.StringUtils.cat;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
@@ -18,10 +14,7 @@ import com.chartis.dvt.core.dao.GoldDao;
 import com.chartis.dvt.core.dao.impl.DvtColumnDaoImpl;
 import com.chartis.dvt.core.dao.impl.DvtLogDaoImpl;
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
-import com.chartis.dvt.core.io.DvtLogIoDao;
-import com.chartis.dvt.core.io.DvtLogIoDaoImpl;
 import com.chartis.dvt.core.jdbc.SimpleDataSourceProvider;
-import com.chartis.dvt.core.model.exception.DvtException;
 
 /**
  * 

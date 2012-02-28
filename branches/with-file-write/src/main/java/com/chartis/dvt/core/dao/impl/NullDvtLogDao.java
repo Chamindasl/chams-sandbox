@@ -17,7 +17,7 @@ public class NullDvtLogDao implements DvtLogIoDao {
     }
 
     public void save(DvtLog log) throws SQLException, IOException {
-        logger.info(StringUtils.cat("Logging on null NullDvtLogDao ", log));
+        logger.fine(StringUtils.cat("Logging on null NullDvtLogDao ", log));
     }
 
     public void close() throws IOException {

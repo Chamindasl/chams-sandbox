@@ -32,7 +32,6 @@ import org.xml.sax.SAXException;
 
 import com.chartis.dvt.commons.utils.StringUtils;
 import com.chartis.dvt.commons.utils.XmlUtils;
-import com.chartis.dvt.core.DaoServiceLocator;
 import com.chartis.dvt.core.dao.impl.NullDvtLogDao;
 import com.chartis.dvt.core.io.DvtLogIoDao;
 import com.chartis.dvt.core.io.DvtLogIoDaoImpl;

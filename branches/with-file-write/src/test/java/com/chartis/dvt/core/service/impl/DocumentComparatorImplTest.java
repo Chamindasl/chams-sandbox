@@ -7,6 +7,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.chartis.dvt.core.dao.impl.NullDvtLogDao;
 import com.chartis.dvt.core.test.util.TestData;
 
 /**
@@ -21,6 +22,7 @@ public class DocumentComparatorImplTest {
     @Before
     public void setUp() throws Exception {
         documentComparatorImpl = new DocumentComparatorImpl();
+        documentComparatorImpl.setDvtLogIoDao(new NullDvtLogDao());
     }
 
     @Test
