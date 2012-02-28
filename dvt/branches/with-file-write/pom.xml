@@ -10,9 +10,9 @@
 	<name>CTOM-Central, Data Validation Tool</name>
 	<url>http://maven.apache.org</url>
 	<scm>
-		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</connection>
-		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</developerConnection>
-		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/branches/with-file-write</url>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</connection>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/dvt/trunk</url>
 	</scm>
 	<developers>
 		<developer>
