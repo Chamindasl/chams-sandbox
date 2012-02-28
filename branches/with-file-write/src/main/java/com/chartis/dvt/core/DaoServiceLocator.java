@@ -2,8 +2,12 @@ package com.chartis.dvt.core;
 
 import static com.chartis.dvt.commons.utils.StringUtils.cat;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
@@ -14,7 +18,10 @@ import com.chartis.dvt.core.dao.GoldDao;
 import com.chartis.dvt.core.dao.impl.DvtColumnDaoImpl;
 import com.chartis.dvt.core.dao.impl.DvtLogDaoImpl;
 import com.chartis.dvt.core.dao.impl.GoldDaoImpl;
+import com.chartis.dvt.core.io.DvtLogIoDao;
+import com.chartis.dvt.core.io.DvtLogIoDaoImpl;
 import com.chartis.dvt.core.jdbc.SimpleDataSourceProvider;
+import com.chartis.dvt.core.model.exception.DvtException;
 
 /**
  * 
@@ -32,6 +39,19 @@ public class DaoServiceLocator {
         buildGoldDao();
         buildDvtColumnDao();
         buildDvtLogDao();
+    }
+
+    private DvtLogIoDao buildDvtLogIoDao() {
+        logger.info(cat("Building ", DvtLogIoDao.class.getName()));
+        final DvtLogIoDaoImpl ioDaoImpl;
+        try {
+            ioDaoImpl = new DvtLogIoDaoImpl(".\\result\\"+ new SimpleDateFormat("yyyyMMddhhmm").format(new Date())+  ".csv");
+            services.put(DvtLogIoDao.class.getName(), ioDaoImpl);
+            return ioDaoImpl;
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Fatal error while creating result csv");
+            throw new DvtException(e);
+        }
     }
 
     private void buildDvtLogDao() {
@@ -63,6 +83,9 @@ public class DaoServiceLocator {
     @SuppressWarnings("unchecked")
     public <T> T service(final Class<T> t) {
         logger.info(cat("Request for ", t.getName()));
+        if (t == DvtLogIoDao.class) {
+            return (T) buildDvtLogIoDao();
+        }
         return (T) services.get(t.getName());
     }
 

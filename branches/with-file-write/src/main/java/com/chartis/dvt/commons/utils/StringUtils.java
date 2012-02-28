@@ -66,11 +66,11 @@ public class StringUtils {
      *            text need to be checked
      * @return "" or text
      */
-    public static String nullSafeText(final String text) {
+    public static String nullSafeText(final Object text) {
         if (text == null) {
             return "";
         }
-        return text;
+        return text.toString();
     }
     /**
      * a safe way to concat strings.

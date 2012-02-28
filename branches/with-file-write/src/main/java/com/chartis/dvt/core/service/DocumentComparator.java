@@ -1,5 +1,6 @@
 package com.chartis.dvt.core.service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -15,5 +16,5 @@ import com.chartis.dvt.core.model.DocumentComparisonResult;
  */
 public interface DocumentComparator {
     DocumentComparisonResult compare(final Document document, final String docName)
-            throws XPathExpressionException, SQLException;
+            throws XPathExpressionException, SQLException, IOException;
 }

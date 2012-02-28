@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -14,12 +16,12 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -49,6 +51,9 @@ import com.chartis.dvt.core.service.impl.DocumentComparatorImpl;
  */
 @SuppressWarnings("serial")
 public class MainFrame extends javax.swing.JFrame {
+
+    private static Logger logger = Logger.getLogger(MainFrame.class.getName());
+
     private JPanel jPanel1;
     private JButton jButton1;
     private JTextField selectedFileNameText;
@@ -92,7 +97,6 @@ public class MainFrame extends javax.swing.JFrame {
 
             @Override
             public String getDescription() {
-                // TODO Auto-generated method stub
                 return ".xml";
             }
 
@@ -104,7 +108,6 @@ public class MainFrame extends javax.swing.JFrame {
                 if (f.getName().toLowerCase().endsWith(".xml")) {
                     return true;
                 }
-                // TODO Auto-generated method stub
                 return false;
             }
         });
@@ -173,6 +176,7 @@ public class MainFrame extends javax.swing.JFrame {
                     } catch (final DvtException e) {
                         nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
                     } catch (final Exception e) {
+                        logger.log(Level.SEVERE, "Error", e);
                         JOptionPane.showMessageDialog(MainFrame.this,
                                 e.getMessage(),
                                 StringUtils.cat("Unknow Error for the file", file.getName()),                                JOptionPane.ERROR_MESSAGE);

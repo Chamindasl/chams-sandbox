@@ -2,6 +2,7 @@ package com.chartis.dvt.core.service.impl;
 
 import static com.chartis.dvt.commons.utils.StringUtils.cat;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.chartis.dvt.core.dao.GoldDao;
 import com.chartis.dvt.core.db.model.DvtColumn;
 import com.chartis.dvt.core.db.model.DvtColumn.EvaluationCode;
 import com.chartis.dvt.core.db.model.DvtLog;
+import com.chartis.dvt.core.io.DvtLogIoDao;
 import com.chartis.dvt.core.model.ColumnComparisonResult;
 import com.chartis.dvt.core.model.DocumentComparisonResult;
 import com.chartis.dvt.core.model.LineOfBusiness;
@@ -40,6 +42,7 @@ public class DocumentComparatorImpl implements DocumentComparator {
     private GoldDao goldDao;
     private DvtColumnDao dvtColumnDao;
     private DvtLogDao dvtLogDao;
+    private DvtLogIoDao dvtLogIoDao;
 
     public DocumentComparatorImpl() {
         lookupServices();
@@ -50,10 +53,11 @@ public class DocumentComparatorImpl implements DocumentComparator {
         goldDao = serviceLocator.service(GoldDao.class);
         dvtColumnDao = serviceLocator.service(DvtColumnDao.class);
         dvtLogDao = serviceLocator.service(DvtLogDao.class);
+        dvtLogIoDao = serviceLocator.service(DvtLogIoDao.class);
     }
 
     public DocumentComparisonResult compare(final Document document, final String docName)
-            throws XPathExpressionException, SQLException {
+            throws XPathExpressionException, SQLException, IOException {
 
         final ActivePolicyXmlWrapper wrapper = new ActivePolicyXmlWrapper(document);
         final PolicyKeys policyKeys = wrapper.getPolicyKeys();
@@ -84,6 +88,8 @@ public class DocumentComparatorImpl implements DocumentComparator {
             updateDocumentComparisonResult(documentCompariosonResult, comparisonResult);
             saveLog(docName, wrapper, column, comparisonResult, now);
         }
+        dvtLogIoDao.flush();
+        dvtLogIoDao.close();
         return documentCompariosonResult;
     }
 
@@ -101,10 +107,11 @@ public class DocumentComparatorImpl implements DocumentComparator {
     }
 
     private void saveLog(final String docName, final ActivePolicyXmlWrapper wrapper, DvtColumn column,
-            final ColumnComparisonResult comparisonResult, final Date date) throws SQLException {
+            final ColumnComparisonResult comparisonResult, final Date date) throws SQLException, IOException {
         final DvtLog dvtLog = buildDvtLog(wrapper, column, comparisonResult, docName);
         dvtLog.setTimestamp(date);
         dvtLogDao.save(dvtLog);
+        dvtLogIoDao.save(dvtLog);
     }
 
     private ColumnComparisonResult getComparisonResult(final ActivePolicyXmlWrapper wrapper,
