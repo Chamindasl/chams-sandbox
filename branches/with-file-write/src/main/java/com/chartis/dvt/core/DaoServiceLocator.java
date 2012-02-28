@@ -41,19 +41,6 @@ public class DaoServiceLocator {
         buildDvtLogDao();
     }
 
-    private DvtLogIoDao buildDvtLogIoDao() {
-        logger.info(cat("Building ", DvtLogIoDao.class.getName()));
-        final DvtLogIoDaoImpl ioDaoImpl;
-        try {
-            ioDaoImpl = new DvtLogIoDaoImpl(".\\result\\"+ new SimpleDateFormat("yyyyMMddhhmm").format(new Date())+  ".csv");
-            services.put(DvtLogIoDao.class.getName(), ioDaoImpl);
-            return ioDaoImpl;
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Fatal error while creating result csv");
-            throw new DvtException(e);
-        }
-    }
-
     private void buildDvtLogDao() {
         logger.info(cat("Building ", DvtLogDao.class.getName()));
         final DvtLogDaoImpl dvtLogDaoImpl = new DvtLogDaoImpl();
@@ -83,9 +70,6 @@ public class DaoServiceLocator {
     @SuppressWarnings("unchecked")
     public <T> T service(final Class<T> t) {
         logger.info(cat("Request for ", t.getName()));
-        if (t == DvtLogIoDao.class) {
-            return (T) buildDvtLogIoDao();
-        }
         return (T) services.get(t.getName());
     }
 

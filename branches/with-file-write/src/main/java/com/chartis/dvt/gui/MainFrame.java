@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +32,10 @@ import org.xml.sax.SAXException;
 
 import com.chartis.dvt.commons.utils.StringUtils;
 import com.chartis.dvt.commons.utils.XmlUtils;
+import com.chartis.dvt.core.DaoServiceLocator;
+import com.chartis.dvt.core.dao.impl.NullDvtLogDao;
+import com.chartis.dvt.core.io.DvtLogIoDao;
+import com.chartis.dvt.core.io.DvtLogIoDaoImpl;
 import com.chartis.dvt.core.model.DocumentComparisonResult;
 import com.chartis.dvt.core.model.exception.DvtException;
 import com.chartis.dvt.core.service.impl.DocumentComparatorImpl;
@@ -47,7 +53,7 @@ import com.chartis.dvt.core.service.impl.DocumentComparatorImpl;
 /**
  * 
  * @author CHAMINDA.AMARASINGHE
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class MainFrame extends javax.swing.JFrame {
@@ -71,6 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 MainFrame inst = new MainFrame();
+                inst.setTitle("CTom - DVT");
                 inst.setLocationRelativeTo(null);
                 inst.setVisible(true);
             }
@@ -83,10 +90,11 @@ public class MainFrame extends javax.swing.JFrame {
         customInitGui();
     }
 
-    private DocumentComparisonResult compare(final File file)
-            throws XPathExpressionException, SQLException, 
-            ParserConfigurationException, SAXException, IOException {
-        return new DocumentComparatorImpl().compare(XmlUtils.fileAsDocument(file), file.getName());
+    private DocumentComparisonResult compare(final File file, final DvtLogIoDao logIoDao)
+            throws XPathExpressionException, SQLException, ParserConfigurationException, SAXException, IOException {
+        final DocumentComparatorImpl documentComparatorImpl = new DocumentComparatorImpl();
+        documentComparatorImpl.setDvtLogIoDao(logIoDao);
+        return documentComparatorImpl.compare(XmlUtils.fileAsDocument(file), file.getName());
     }
 
     private void customInitGui() {
@@ -134,16 +142,16 @@ public class MainFrame extends javax.swing.JFrame {
                             jList1.setModel(new DefaultComboBoxModel(nameObjects));
                             okButton.setEnabled(true);
                         } else {
-                            jList1.setModel(new DefaultComboBoxModel(new Object[]{}));
+                            jList1.setModel(new DefaultComboBoxModel(new Object[] {}));
                             okButton.setEnabled(false);
                         }
 
                     } else {
-                        jList1.setModel(new DefaultComboBoxModel(new Object[] {new NameObject(file.getName(), file)}));
+                        jList1.setModel(new DefaultComboBoxModel(new Object[] { new NameObject(file.getName(), file) }));
                         okButton.setEnabled(true);
                     }
                 } else {
-                    jList1.setModel(new DefaultComboBoxModel(new Object[]{}));
+                    jList1.setModel(new DefaultComboBoxModel(new Object[] {}));
                     okButton.setEnabled(false);
                 }
 
@@ -152,37 +160,56 @@ public class MainFrame extends javax.swing.JFrame {
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                final Object[] newModelItems = new Object[jList1.getModel().getSize()];  
-                for(int i = 0; i < jList1.getModel().getSize(); i++) {
-                    final NameObject nameObject = (NameObject)jList1.getModel().getElementAt(i);
-                    final File file =((File)nameObject.getObject());
+                final Object[] newModelItems = new Object[jList1.getModel().getSize()];
+                DvtLogIoDao logservice;
+                try {
+                    logservice = new DvtLogIoDaoImpl(".\\result\\"
+                            + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".csv");
+                } catch (final IOException e1) {
+                    logger.log(Level.SEVERE, "Could not create result files. assigning null log service.", e1);
+                    logservice = new NullDvtLogDao();
+                }
+                for (int i = 0; i < jList1.getModel().getSize(); i++) {
+                    final NameObject nameObject = (NameObject) jList1.getModel().getElementAt(i);
+                    final File file = ((File) nameObject.getObject());
                     try {
-                        final DocumentComparisonResult result = compare(file);
-                        final String s = StringUtils.cat(false, file.getName(),
-                                "     -     [Matches : (", result.getExactMatch(), "), ",
-                                "Mismatches : (", result.getMisMatch(), "), ",
+                        final DocumentComparisonResult result = compare(file, logservice);
+                        final String s = StringUtils.cat(false, file.getName(), "     -     [Matches : (",
+                                result.getExactMatch(), "), ", "Mismatches : (", result.getMisMatch(), "), ",
                                 "Neglects : (", result.getNiglect(), ") ]");
                         nameObject.setName(s);
                     } catch (final XPathExpressionException e) {
-                        nameObject.setName(StringUtils.cat(false, file.getName(), " [XPATH ERROR]"));                        
+                        logger.log(Level.SEVERE, "Error", e);
+                        nameObject.setName(StringUtils.cat(false, file.getName(), " [XPATH ERROR]"));
                     } catch (final SQLException e) {
+                        logger.log(Level.SEVERE, "Error", e);
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [DB ERROR]"));
                     } catch (final ParserConfigurationException e) {
+                        logger.log(Level.SEVERE, "Error", e);
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XML PARSE ERROR]"));
                     } catch (final SAXException e) {
+                        logger.log(Level.SEVERE, "Error", e);
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [XML PARSE ERROR]"));
                     } catch (final IOException e) {
+                        logger.log(Level.SEVERE, "Error", e);
                         nameObject.setName(StringUtils.cat(false, file.getName(), " [FILE ERROR]"));
                     } catch (final DvtException e) {
-                        nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
+                        logger.log(Level.SEVERE, "Error", e);
+                        nameObject.setName(StringUtils.cat(false, file.getName(),
+                                StringUtils.cat(" [", e.getMessage(), "]")));
                     } catch (final Exception e) {
                         logger.log(Level.SEVERE, "Error", e);
-                        JOptionPane.showMessageDialog(MainFrame.this,
-                                e.getMessage(),
-                                StringUtils.cat("Unknow Error for the file", file.getName()),                                JOptionPane.ERROR_MESSAGE);
-                        nameObject.setName(StringUtils.cat(false, file.getName(), StringUtils.cat(" [", e.getMessage() ,"]")));
+                        JOptionPane.showMessageDialog(MainFrame.this, e.getMessage(),
+                                StringUtils.cat("Unknow Error for the file", file.getName()), JOptionPane.ERROR_MESSAGE);
+                        nameObject.setName(StringUtils.cat(false, file.getName(),
+                                StringUtils.cat(" [", e.getMessage(), "]")));
                     }
                     newModelItems[i] = nameObject;
+                }
+                try {
+                    logservice.flush();
+                    logservice.close();
+                } catch (final IOException e) {
                 }
                 jList1.setModel(new DefaultComboBoxModel(newModelItems));
             }
@@ -285,18 +312,19 @@ public class MainFrame extends javax.swing.JFrame {
                                                 GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
                                                 GroupLayout.PREFERRED_SIZE)).addContainerGap());
             }
-            thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, 0, 192, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap());
-            thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(thisLayout.createParallelGroup()
-                    .addComponent(jPanel1, GroupLayout.Alignment.LEADING, 0, 716, Short.MAX_VALUE)
-                    .addComponent(jPanel2, GroupLayout.Alignment.LEADING, 0, 716, Short.MAX_VALUE))
-                .addContainerGap());
+            thisLayout.setVerticalGroup(thisLayout.createSequentialGroup().addContainerGap()
+                    .addComponent(jPanel1, 0, 192, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap());
+            thisLayout.setHorizontalGroup(thisLayout
+                    .createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(
+                            thisLayout.createParallelGroup()
+                                    .addComponent(jPanel1, GroupLayout.Alignment.LEADING, 0, 716, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, GroupLayout.Alignment.LEADING, 0, 716, Short.MAX_VALUE))
+                    .addContainerGap());
             pack();
             this.setSize(748, 300);
         } catch (Exception e) {

@@ -43,6 +43,10 @@ public class DocumentComparatorImpl implements DocumentComparator {
     private DvtColumnDao dvtColumnDao;
     private DvtLogDao dvtLogDao;
     private DvtLogIoDao dvtLogIoDao;
+    
+    public void setDvtLogIoDao(DvtLogIoDao dvtLogIoDao) {
+        this.dvtLogIoDao = dvtLogIoDao;
+    }
 
     public DocumentComparatorImpl() {
         lookupServices();
@@ -53,7 +57,6 @@ public class DocumentComparatorImpl implements DocumentComparator {
         goldDao = serviceLocator.service(GoldDao.class);
         dvtColumnDao = serviceLocator.service(DvtColumnDao.class);
         dvtLogDao = serviceLocator.service(DvtLogDao.class);
-        dvtLogIoDao = serviceLocator.service(DvtLogIoDao.class);
     }
 
     public DocumentComparisonResult compare(final Document document, final String docName)
@@ -88,8 +91,6 @@ public class DocumentComparatorImpl implements DocumentComparator {
             updateDocumentComparisonResult(documentCompariosonResult, comparisonResult);
             saveLog(docName, wrapper, column, comparisonResult, now);
         }
-        dvtLogIoDao.flush();
-        dvtLogIoDao.close();
         return documentCompariosonResult;
     }
 
