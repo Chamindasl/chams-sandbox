@@ -35,6 +35,8 @@ public class TestData {
             "<certificate_no>0</certificate_no>" +
             "<renl_cert_no>0004</renl_cert_no>" +
             "<eff_dt_seq_no>2000110700</eff_dt_seq_no>" +
+            "<source_system_id>01</source_system_id>" +
+            "<record_type_cd>E</record_type_cd>" +
             "<pol_chnge_eff_date>2000-11-07 00:00:00.0</pol_chnge_eff_date>" +
             "<Client>" +
             "<Address><Street>Name of Street</Street></Address>" +
