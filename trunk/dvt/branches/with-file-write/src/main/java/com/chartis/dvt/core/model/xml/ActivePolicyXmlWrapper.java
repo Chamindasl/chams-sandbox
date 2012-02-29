@@ -26,12 +26,16 @@ import org.w3c.dom.Document;
 public class ActivePolicyXmlWrapper {
 
     private final static ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("xpath");
-    public final static String XP_POLICY_OFFICE_CD = BUNDLE.getString("XP_POLICY_OFFICE_CD");
-    public final static String XP_POLICY_NO = BUNDLE.getString("XP_POLICY_NO");
-    public final static String XP_POLICY_CERTIFICATE_NO = BUNDLE.getString("XP_POLICY_CERTIFICATE_NO");
-    public final static String XP_POLICY_RENL_CERT_NO = BUNDLE.getString("XP_POLICY_RENL_CERT_NO");
-    public final static String XP_POLICY_EFF_DT_SEQ_NO = BUNDLE.getString("XP_POLICY_EFF_DT_SEQ_NO");
-    public final static String XP_SOURCE_SYSTEM_ID = BUNDLE.getString("XP_SOURCE_SYSTEM_ID");
+
+    public final static String SOURCE_SYSTEM_ID = "SOURCE_SYSTEM_ID";
+    public final static String RECORD_TYPE_CD = "RECORD_TYPE_CD";
+    public final String XP_POLICY_OFFICE_CD = BUNDLE.getString("XP_POLICY_OFFICE_CD");
+    public final String XP_POLICY_NO = BUNDLE.getString("XP_POLICY_NO");
+    public final String XP_POLICY_CERTIFICATE_NO = BUNDLE.getString("XP_POLICY_CERTIFICATE_NO");
+    public final String XP_POLICY_RENL_CERT_NO = BUNDLE.getString("XP_POLICY_RENL_CERT_NO");
+    public final String XP_POLICY_EFF_DT_SEQ_NO = BUNDLE.getString("XP_POLICY_EFF_DT_SEQ_NO");
+    public final String XP_SOURCE_SYSTEM_ID = BUNDLE.getString("XP_SOURCE_SYSTEM_ID");
+    public final String XP_RECORD_TYPE_CD = BUNDLE.getString("XP_RECORD_TYPE_CD");
 
     private Document document;
     private XPath xpath;
@@ -77,10 +81,11 @@ public class ActivePolicyXmlWrapper {
     
     private void loadOtherKeys() throws XPathExpressionException {
         final Map <String, String> temp = new HashMap<String, String>();
-        temp.put("SourceSystemId", ((String) xpath.compile(XP_SOURCE_SYSTEM_ID).evaluate(document, XPathConstants.STRING)));
+        temp.put(SOURCE_SYSTEM_ID, ((String) xpath.compile(XP_SOURCE_SYSTEM_ID).evaluate(document, XPathConstants.STRING)));
+        temp.put(RECORD_TYPE_CD, ((String) xpath.compile(XP_RECORD_TYPE_CD).evaluate(document, XPathConstants.STRING)));
         otherKeys = Collections.unmodifiableMap(temp);
     }
-    
+
     private boolean validatePolicyKeys() {
         return allHasText(policyKeys.getPolicyNo(), policyKeys.getPolOfficeCd(), policyKeys.getRenlCertNo())
                 && policyKeys.getCertificateNo() != null 

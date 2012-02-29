@@ -33,7 +33,7 @@ import com.chartis.dvt.core.service.DocumentComparator;
 /**
  * 
  * @author CHAMINDA.AMARASINGHE
- *
+ * 
  */
 public class DocumentComparatorImpl implements DocumentComparator {
 
@@ -43,7 +43,7 @@ public class DocumentComparatorImpl implements DocumentComparator {
     private DvtColumnDao dvtColumnDao;
     private DvtLogDao dvtLogDao;
     private DvtLogIoDao dvtLogIoDao;
-    
+
     public void setDvtLogIoDao(DvtLogIoDao dvtLogIoDao) {
         this.dvtLogIoDao = dvtLogIoDao;
     }
@@ -135,21 +135,48 @@ public class DocumentComparatorImpl implements DocumentComparator {
     private static class DvtLogBuilder {
 
         static void fillFrom(final ActivePolicyXmlWrapper wrapper, final DvtLog dvtLog) {
-            dvtLog.setSourceSystemId(wrapper.getOtherKeys().get("SourceSystemId"));
+            dvtLog.setSourceSystemId(wrapper.getOtherKeys().get(ActivePolicyXmlWrapper.SOURCE_SYSTEM_ID));
             dvtLog.setCertificateNo(wrapper.getPolicyKeys().getCertificateNo());
             dvtLog.setEffDtSeq_no(wrapper.getPolicyKeys().getEffDtSeqNo());
             dvtLog.setPolicyNo(wrapper.getPolicyKeys().getPolicyNo());
             dvtLog.setPolOfficeCd(wrapper.getPolicyKeys().getPolOfficeCd());
             dvtLog.setRenlCertNo(wrapper.getPolicyKeys().getRenlCertNo());
-            // TODO
-            dvtLog.setTransTypeDesc("New Business");
+            final String rTypeName = getRecordType(wrapper);
+            dvtLog.setTransTypeDesc(rTypeName);
+        }
+
+        private static String getRecordType(final ActivePolicyXmlWrapper wrapper) {
+            final char rType = wrapper.getOtherKeys().get(ActivePolicyXmlWrapper.RECORD_TYPE_CD).charAt(0);
+            final String rTypeName;
+            switch (rType) {
+            case 'N':
+                rTypeName = "New Business";
+                break;
+            case 'E':
+                rTypeName = "Endorsement";
+                break;
+            case 'X':
+                rTypeName = "Cancellation";
+                break;
+            case 'I':
+                rTypeName = "Reinstatement";
+                break;
+            case 'R':
+                rTypeName = "Renewal";
+                break;
+            case 'L':
+                rTypeName = "Lapsed";
+                break;
+            default:
+                rTypeName = "Other";
+            }
+            return rTypeName;
         }
 
         static void fillFrom(final ColumnComparisonResult comparisonResult, final DvtLog dvtLog) {
             dvtLog.setColValue(comparisonResult.getDbValue());
             dvtLog.setXmlElementValue(comparisonResult.getXmlValue());
 
-            // TODO
             if (comparisonResult.isMatch()) {
                 dvtLog.setStatusCd("01");
             } else {
