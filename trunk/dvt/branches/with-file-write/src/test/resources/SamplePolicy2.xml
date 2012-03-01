@@ -1,0 +1,7 @@
+<Policy>
+	<Client>
+		<Man>T2</Man>
+		<Man>T1</Man>
+		<age att2="att2">2</age>
+	</Client>
+</Policy>
