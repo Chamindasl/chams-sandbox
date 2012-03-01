@@ -61,6 +61,13 @@ public class TestData {
         return builder.parse(is);
     }
 
+    public static Document pathToDoc(final String path) throws Exception {
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+        final InputSource is = new InputSource(new FileReader(path));
+        return builder.parse(is);
+    }
+
     public static PolicyKeys samplePolicyKeys () {
         final PolicyKeys keys = new PolicyKeys();
         keys.setPolOfficeCd("182001");
