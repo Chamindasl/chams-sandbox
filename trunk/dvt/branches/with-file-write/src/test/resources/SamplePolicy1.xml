@@ -1,6 +1,24 @@
-<Policy>
-	<Client>
-		<Man>T1</Man>		<Man>T2 </Man><Man>T3 </Man>		<age att="att" att2="att2">2</age>
-		
-	</Client>
-</Policy>
+<root>
+<BookingPolicy>
+			<Risk>
+				<Coverage>TXT</Coverage>
+				<Coverage>
+				</Coverage>
+			</Risk>
+			<Risk>
+				<Coverage></Coverage>
+			</Risk>
+</BookingPolicy>
+
+<BookingPolicy>
+			<Risk>
+				<Coverage>
+				</Coverage>
+				<Coverage>
+				</Coverage>
+			</Risk>
+			<Risk>
+				<Coverage></Coverage>
+			</Risk>
+</BookingPolicy>
+</root>
