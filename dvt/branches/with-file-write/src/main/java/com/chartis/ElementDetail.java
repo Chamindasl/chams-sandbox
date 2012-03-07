@@ -1,11 +1,14 @@
 package com.chartis;
 
+import org.w3c.dom.Element;
+
 public class ElementDetail {
 
     private int depth;
     private int childElements;
     private String xpath;
-
+    private Element element;
+    
     public int getDepth() {
         return depth;
     }
@@ -28,5 +31,11 @@ public class ElementDetail {
     public String toString() {
         return "ElementDetail [depth=" + depth + ", childElements=" + childElements + ", xpath=" + xpath + "]";
     }
-    
+    public Element getElement() {
+        return element;
+    }
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.custommonkey.xmlunit.XpathNodeTracker;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -22,8 +23,6 @@ public class XpathDepthTracker {
             xpTracker.indent();
             for (int i = 0; i < children.getLength(); i++) {
                 Node childNode = children.item(i);
-                // here would be a good place to put your application logic
-                // and do something base upon node type
                 if (childNode.getNodeType() == Node.ELEMENT_NODE) {
                     traverseNodes(childNode, xpTracker, currentDepth + 1);
                     chlidElements++;
@@ -33,7 +32,7 @@ public class XpathDepthTracker {
         }
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             String xpathString = xpTracker.toXpathString();
-            ElementDetail result = resultElement(currentDepth, chlidElements, xpathString);
+            ElementDetail result = resultElement(currentDepth, chlidElements, xpathString, (Element)node);
             addToDepthResult(currentDepth, result);
             addToParentXp(xpathString, result);
 
@@ -42,16 +41,11 @@ public class XpathDepthTracker {
     }
 
     private void addToParentXp(String xpathString, ElementDetail result) {
-        String parentXpath = XmlUtils.parentXpath(xpathString);
-        int lastIndexOf = parentXpath.lastIndexOf("[");
-        if (lastIndexOf == -1) {
-            lastIndexOf = parentXpath.length();
-        }
-        String parentXpathWithOutIndex = parentXpath.substring(0, lastIndexOf); 
-        List<ElementDetail>  currentElementDetialsByXp = resultByXpath.get(parentXpathWithOutIndex);
+        String withoutLastIndex = XmlUtils.withoutLastIndex(xpathString);
+        List<ElementDetail>  currentElementDetialsByXp = resultByXpath.get(withoutLastIndex);
         if (currentElementDetialsByXp == null) {
             currentElementDetialsByXp = new ArrayList<ElementDetail>();
-            resultByXpath.put(parentXpathWithOutIndex, currentElementDetialsByXp);
+            resultByXpath.put(withoutLastIndex, currentElementDetialsByXp);
         }
         currentElementDetialsByXp.add(result);
     }
@@ -65,11 +59,12 @@ public class XpathDepthTracker {
         currentElementDetials.add(result);
     }
 
-    private ElementDetail resultElement(int currentDepth, int chlidElements, String xpathString) {
+    private ElementDetail resultElement(int currentDepth, int chlidElements, String xpathString, Element element) {
         ElementDetail result = new ElementDetail();
         result.setDepth(currentDepth);
         result.setChildElements(chlidElements);
         result.setXpath(xpathString);
+        result.setElement(element);
         return result;
     }
 
