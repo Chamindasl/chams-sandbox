@@ -4,7 +4,7 @@
 
 	<groupId>chams.open</groupId>
 	<artifactId>xpath-tracker</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -12,9 +12,9 @@
 
 	<url>https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker</url>
 	<scm>
-		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/tags/xpath-tracker-1.0</connection>
-		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/tags/xpath-tracker-1.0</developerConnection>
-		<url>https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/tags/xpath-tracker-1.0</url>
+		<connection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/trunk</connection>
+		<developerConnection>scm:svn:https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/trunk</developerConnection>
+		<url>https://chams-sandbox.googlecode.com/svn/trunk/xpath-tracker/trunk</url>
 	</scm>
 	<developers>
 		<developer>
