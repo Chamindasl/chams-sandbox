@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BookingPolicy>
+	<Client>
+		<Man1>T1</Man1>
+		<Man1>T2</Man1>
+		<Man3>T4</Man3>
+		<Man2>T4</Man2>
+	</Client>
+	<AnotherNode><E>B</E></AnotherNode>
+</BookingPolicy>
