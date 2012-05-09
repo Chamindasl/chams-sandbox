@@ -26,13 +26,13 @@ public class XPathFinderTest {
         finder = new XPathFinder();
         foundListeners = new ArrayList<XPathFoundListener>();
         listHolderListener = new ListHolderListener();
-        foundListeners.add(new PrintListener());
         foundListeners.add(listHolderListener);
         finder.setListeners(foundListeners);
     }
 
     @Test
     public void testTINY_DOC() throws Exception {
+        foundListeners.add(new PrintListener());
         finder.find(TestData.stringToDoc(TestData.TINY_DOC));
         assertEquals(7, listHolderListener.getXPathFoundEvents().size() );
         
