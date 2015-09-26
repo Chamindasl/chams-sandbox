@@ -17,7 +17,8 @@ There are so many ways make cluster for testing purpose in localhost. In here I 
 
 
 #### 1. Create LinuxMint VM
-Not going to explain things in detail, Basically we need virtual box, vmware or similar. As I mentioned early I will use virtualbox, 
+Not going to explain things in detail, Basically we need virtual box, vmware or similar. As I mentioned early I will use virtualbox.
+
 1. Install viritual box
 2. Download LinuxMint's Cinnamon No codecs from here http://www.linuxmint.com/download.php
 3.   * LinuxMint is lightweight than ubuntu, 
