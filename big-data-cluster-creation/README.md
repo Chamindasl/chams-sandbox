@@ -26,4 +26,4 @@ Not going to explain things in detail, Basically we need virtual box, vmware or 
 3. Create a new VM with 20 GB hd and 2 GB RAM
 4. Set the downloaded iso as Storage
 5. Start VM and Install LinuxMin
-
+6. If you get "Cinnamon running in software rendering mode" message after installation, Power off VM,  Enable 3D accelaration under Display section of virtual box and restart VM. 
