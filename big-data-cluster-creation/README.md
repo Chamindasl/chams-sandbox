@@ -95,3 +95,40 @@ We came through a painful process. Still 3 more vms to setup. Instead of reitera
 Good thing with virtualbox cloning is they have nice cool feature called "Linked-clone", in where they create completely new vm but make a harddisk snapshot of original one.
 Using this we no need to waste 80 gb (20 x 4) hd space for our 4 vms instead 20 gb for original + less than 1 gb other 3 vms.
 Disadvantage of this method is cloned vms are not portable but its not an issue in our case. 
+Lets make 3 clones
+
+1. Trun of original vm (will call it s1) if it is truning
+2. Right click s1 in the vbox manger and select "Clone"
+3. Name the clone as s2 and select "Reinitialise MAC... " and Click Clone
+4. In the next step Select "Linked-clone" and proceed. 
+5. Repeat the same for vms (s3 and s4)
+
+Now we have 4 vms named s1, s2, s3, s4. We can run them parallely but we might see ip conflicts since we assigned ip manually in s1 and every vm has same ip 192.168.56.101
+
+
+#### 7. Network between VMs.
+Next thing we need to do is setup up communication between vms. Need to do following things for each vm
+
+1. Change the ip
+2. Change the hostname
+3. Change the hosts
+
+1. Change the ip
+  In here I prefer using NetworkManager. Manually set the ip to 192.168.56.101
+  
+2. Change the hostname
+  sudo vi /etc/hostname
+  give the name as s1.
+
+3. Change the hosts
+  sudo vi /etc/hosts
+  append flowing
+
+  127.0.1.1 		s1  
+
+  192.168.56.101	s1
+  192.168.56.102	s2
+  192.168.56.103	s3
+  192.168.56.104	s4
+
+4. repeat that for s2, s3, and s4, 
