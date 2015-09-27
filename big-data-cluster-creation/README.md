@@ -121,14 +121,17 @@ Next thing we need to do is setup up communication between vms. Need to do follo
   give the name as s1.
 
 3. Change the hosts
+```sh
   sudo vi /etc/hosts
+```
   append flowing
 
+```
   127.0.1.1 		s1  
 
   192.168.56.101	s1
   192.168.56.102	s2
   192.168.56.103	s3
   192.168.56.104	s4
-
+```
 4. repeat that for s2, s3, and s4, 
