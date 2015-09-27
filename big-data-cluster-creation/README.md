@@ -67,5 +67,12 @@ The key's randomart image is:
 ```
 
  
-
-
+#### 4. Install JDK
+1. Download JDK from Sun (Oracle)
+2. Export env vars in .profile
+``` sh
+export JAVA_HOME=/home/chams/sw/jdk1.8.0_60
+export PATH=$JAVA_HOME/bin:$PATH
+```
+3. `source .profile
+4. Varify. `export
