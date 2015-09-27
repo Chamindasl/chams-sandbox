@@ -27,3 +27,45 @@ Not going to explain things in detail, Basically we need virtual box, vmware or 
 4. Set the downloaded iso as Storage
 5. Start VM and Install LinuxMin
 6. If you get "Cinnamon running in software rendering mode" message after installation, Power off VM,  Enable 3D accelaration under Display section of virtual box and restart VM. 
+
+
+#### 2. Network between Host and VM
+1. Enable 1st Adapter as Host-Only Adapter from settings of VM
+2. Set fixed ip for the VM manually. Eg 192.168.56.101. Do not go with DHCP.
+3. Chech the connectivity between host and vm. Both should be able to ping other.
+
+
+#### 3. Internet in VM
+1. Enable 2nd Adapter as NAT
+2. Check internet in VM
+
+
+#### 4. Install SSH
+```sh
+chams@c1 ~ $  ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/chams/.ssh/id_rsa): 
+Created directory '/home/chams/.ssh'.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/chams/.ssh/id_rsa.
+Your public key has been saved in /home/chams/.ssh/id_rsa.pub.
+The key fingerprint is:
+77:3e:09:bb:c7:57:4e:b9:e5:cc:25:89:bd:47:e1:0d chams@c1
+The key's randomart image is:
++--[ RSA 2048]----+
+|                 |
+|                 |
+|                 |
+|              E. |
+|        S o .o.o+|
+|         . =..+oB|
+|          ..+  @+|
+|           .o.o.*|
+|          .. . . |
++-----------------+
+```
+
+ 
+
+
