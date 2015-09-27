@@ -117,7 +117,9 @@ Next thing we need to do is setup up communication between vms. Need to do follo
   In here I prefer using NetworkManager. Manually set the ip to 192.168.56.101
   
 2. Change the hostname
+```
   sudo vi /etc/hostname
+```
   give the name as s1.
 
 3. Change the hosts
@@ -134,4 +136,12 @@ Next thing we need to do is setup up communication between vms. Need to do follo
   192.168.56.103	s3
   192.168.56.104	s4
 ```
-4. repeat that for s2, s3, and s4, 
+4. repeat that for s2, s3, and s4.
+5. restart all vms.
+6. from a vm we should be able to ping other by ip and name 
+```
+ping s1
+ping s2
+ping s3
+ping s4
+```
