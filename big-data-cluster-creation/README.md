@@ -8,7 +8,7 @@ There are so many ways make cluster for testing purpose in localhost. In here I 
 1. Create LinuxMint VM
 2. Network between Host and VM
 3. Internet in VM
-4. Install SSH
+4. Setup SSH
 5. Install JDK
 5. Clone VM to create additional 3 VMs
 6. Network between VMs
@@ -40,7 +40,7 @@ Not going to explain things in detail, Basically we need virtual box, vmware or 
 2. Check internet in VM
 
 
-#### 4. Install SSH
+#### 4. Set SSH
 ```sh
 chams@c1 ~ $  ssh-keygen -t rsa
 Generating public/private rsa key pair.
