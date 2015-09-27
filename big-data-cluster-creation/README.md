@@ -119,8 +119,8 @@ Next thing we need to do is setup up communication between vms. Need to do follo
 2. Change the hostname
 ```
   sudo vi /etc/hostname
+  #give the name as s1.
 ```
-  give the name as s1.
 
 3. Change the hosts
 ```sh
@@ -136,12 +136,43 @@ Next thing we need to do is setup up communication between vms. Need to do follo
   192.168.56.103	s3
   192.168.56.104	s4
 ```
+
 4. repeat that for s2, s3, and s4.
 5. restart all vms.
-6. from a vm we should be able to ping other by ip and name 
+6. from a vm we should be able to ping/ssh other by ip and name 
+
 ```
 ping s1
 ping s2
 ping s3
 ping s4
 ```
+
+#### 7. passwordless ssh
+passwordless ssh means, key based ssh. 
+First will see a known example. When we need to push something to github without our password , what we will do is we paste our public key in github. 
+So when we push, git sends our public key information to github and github can identify us using the key we have given to github early.  
+Lets map the same scenario into our case. s1 needs to connect to s2 without s2's password, so what we need to is put s1's public key into s2's authorized_keys.
+When s1 is sshing to s2, ssh will send s1's public key and s2 verifies that income key is from a known by comparing keys in s2's authorized_keys.
+
+So will do followings for each vm 
+1. Generate public/private keys again
+```
+ssh-keygen -t rsa
+# override existing keys
+```
+2. Copy/append public to each vms' authorized_keys. (I did it bit differently, I appended each vms (includig s1) public key  to s1's authorized_keys. now s1 has authorized_keys all pub keys. Then copy s1's authorized_keys to other vms)
+```sh
+cat ~/.ssh/authorized_keys | ssh s1 'cat >> .ssh/authorized_keys'
+```
+	Above command is bit confusing. what we are doing in here is we cat the current machines authorized_keys, then pipe it to ssh of s1 and cat again what we are piping in s1 and append it to s1s .ssh/authorized_keys
+	Anyway at the end each vms authorized_keys should contain 4 vms pub keys
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE3Sau+adWCWPwXW1dDhM1oSQptc6QebPTfpUw/tpU8qC2WEB5CfvxE8CxpcQ+Sf/PW0z1WNOZ1b+Q6DuS+jL/Ps0gF0tOOwSFrUAxYgy3c4KDVss48V8NSyQqe0AEjqhYFAvwYHnZ/ihqsXlQhoLEOKRUAI8Cd8rKgdHCbnUCDJrLvhTP1WD4iaIY5pS/a32o0A895hQnFFnUR/f2cSRs/GSgY5nHsTd5rbR5CWnzmCwdMoLsuNE+LPISsuM7t9rtDj9Bonar5BgJM/ztiv9FmKJwltlyTmX+icSmF+wNGH8n8kDKoDEm8rteVjS18H4Dk0CRdt2Uph3S0a5w7kVX chams@s1
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkwaCqmZCqPFDJIp2EYq9H4HgfR9ESi6p6vgPIjTh+SHmp3q285KuLa3ZoInEroRT4NCnVuTCIxdvOFqnHcSoQGH7oG3RFnZLy9aCrKVP2l+fH013rhMkwY674oS7jk5LvHImgFpF3oidPwXXQ7jEIf1OZJ3Jlt8x034Pt36VdQIejFww9cL7vIa0oIurxNIA9QNfwNiA1ncsjZN/sXuLVry1wDHSoPe4MTeW0vG6IkUOneXk+t7dwjyapWkh/HMZ4kLSaYODO2/L82DYdxdNCDEWl2BcC9Kjk34xK7CzkawqCW1H2x5LN0eJRmprRcxS/FMIf09XyEe2jk0BWHd4H chams@s2
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhQQIcEEqpj1am1cAvCGY4wvswNMiSBnWdiS7aritS6c8whhm2JmR02gfHBxJAAfK8Kyn+47XjoJOZaI2uhpLLhIc3YuSfY3Kbmh9lYNvigDVFmVQEIAMcFpczbdZ8laanxQ53zllJ72uESGdrIEmBiP3EqU2mBBJX3jty5l07dOJh+Pq9j2hXOxKeKzvFBSvBOcN1uHHAvqp1YNYNu5Yldud1R7RuEMX9qGgOGYfgp91VAaMwujTcjaVfbDYAqsnzDzWQzdR1BUY+BLLCtehtpT4KOGrdoy3jvrT+eq3+RdDKKe0IElLW/a1NP1PvG3Pe8wPX/Bxu1lB+mcCqQ1EV chams@s3
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDClKMmYtT73pdRaHrEumxLpTX1MY5BSs56aBKJ35hrcZ1Y4KrW6AwamQyO3FuzmOXA15b48M+eL2xnPYSO1NfOqPgvP4T6SngBKqFJBADPHOXIo0UkmH3o1JaGnzmd3S2Q+9xU9657php20KJk3KSMSPwWFH6e4+EieJ4mjsIHVaXKID86PgyxxQTRc8f6gBCDr09E/wj3hfpRA/+9rEDZibt+0uLzIDspRUeOGy1avKG2icHk/fFogpruyhkTDURNrEpu7BVpvlWl/P9C66d+YclIYbothikFVG23MCUwRBdt11ITclYtYnDBXuY650Vswe5tqPnn+cZittO0RKVh chams@s4
+```
+
+All set. you should be able to ssh each other. If not working restart and try. Still not working set permissions of .ssh and .ssh/authorized_keys
+	
