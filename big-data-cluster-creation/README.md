@@ -10,10 +10,10 @@ There are so many ways make cluster for testing purpose in localhost. In here I 
 3. Internet in VM
 4. Setup SSH
 5. Install JDK
-5. Clone VM to create additional 3 VMs
-6. Network between VMs
-7. Passwordless ssh between VMs
-8. Textmode boot for VMs
+6. Clone VM to create additional 3 VMs
+7. Network between VMs
+8. Passwordless ssh between VMs
+9. Textmode boot for VMs
 
 
 #### 1. Create LinuxMint VM
@@ -26,13 +26,13 @@ Not going to explain things in detail, Basically we need virtual box, vmware or 
 3. Create a new VM with 20 GB hd and 2 GB RAM
 4. Set the downloaded iso as Storage
 5. Start VM and Install LinuxMin
-6. If you get "Cinnamon running in software rendering mode" message after installation, Power off VM,  Enable 3D accelaration under Display section of virtual box and restart VM. 
+6. If you get "Cinnamon running in software rendering mode" message after installation, Power off VM,  Enable 3D acceleration under Display section of virtual box and restart VM. 
 
 
 #### 2. Network between Host and VM
 1. Enable 1st Adapter as Host-Only Adapter from settings of VM
 2. Set fixed ip for the VM manually. Eg 192.168.56.101. Do not go with DHCP.
-3. Chech the connectivity between host and vm. Both should be able to ping other.
+3. Check the connectivity between host and vm. Both should be able to ping other.
 
 
 #### 3. Internet in VM
@@ -67,12 +67,31 @@ The key's randomart image is:
 ```
 
  
-#### 4. Install JDK
+#### 5. Install JDK
 1. Download JDK from Sun (Oracle)
 2. Export env vars in .profile
 ``` sh
 export JAVA_HOME=/home/chams/sw/jdk1.8.0_60
 export PATH=$JAVA_HOME/bin:$PATH
 ```
-3. `source .profile
-4. Varify. `export
+3. Apply changes and Varify
+```ssh
+chams@c1 ~ $ source .profile 
+chams@c1 ~ $ export | grep 'PATH\|JAVA' 
+declare -x DEFAULTS_PATH="/usr/share/gconf/cinnamon.default.path"
+declare -x JAVA_HOME="/home/chams/sw/jdk1.8.0_60"
+declare -x MANDATORY_PATH="/usr/share/gconf/cinnamon.mandatory.path"
+declare -x PATH="/home/chams/sw/jdk1.8.0_60/bin:/home/chams/sw/jdk1.8.0_60/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+declare -x WINDOWPATH="8"
+chams@c1 ~ $ java -version
+java version "1.8.0_60"
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+chams@c1 ~ $ 
+```
+
+#### 6. Clone VM to create additional 3 VMs
+We came through a painful process. Still 3 more vms to setup. Instead of reiterate the process again and again we can clone the vm what we have setup.
+Good thing with virtualbox cloning is they have nice cool feature called "Linked-clone", in where they create completely new vm but make a harddisk snapshot of original one.
+Using this we no need to waste 80 gb (20 x 4) hd space for our 4 vms instead 20 gb for original + less than 1 gb other 3 vms.
+Disadvantage of this method is cloned vms are not portable but its not an issue in our case. 
