@@ -74,5 +74,19 @@ The key's randomart image is:
 export JAVA_HOME=/home/chams/sw/jdk1.8.0_60
 export PATH=$JAVA_HOME/bin:$PATH
 ```
-3. `source .profile
-4. Varify. `export
+3. Apply changes and Varify
+```ssh
+chams@c1 ~ $ source .profile 
+chams@c1 ~ $ export | grep 'PATH\|JAVA' 
+declare -x DEFAULTS_PATH="/usr/share/gconf/cinnamon.default.path"
+declare -x JAVA_HOME="/home/chams/sw/jdk1.8.0_60"
+declare -x MANDATORY_PATH="/usr/share/gconf/cinnamon.mandatory.path"
+declare -x PATH="/home/chams/sw/jdk1.8.0_60/bin:/home/chams/sw/jdk1.8.0_60/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+declare -x WINDOWPATH="8"
+chams@c1 ~ $ java -version
+java version "1.8.0_60"
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+chams@c1 ~ $ 
+```
+
