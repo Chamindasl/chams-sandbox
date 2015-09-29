@@ -159,14 +159,18 @@ So will do followings for each vm
 1. Generate public/private keys again
 ```
 ssh-keygen -t rsa
-# override existing keys
 ```
+>override existing keys
+> in here option `t` is type.
+
 2. Copy/append public to each vms' authorized_keys. (I did it bit differently, I appended each vms (includig s1) public key  to s1's authorized_keys. now s1 has authorized_keys all pub keys. Then copy s1's authorized_keys to other vms)
 ```sh
 cat ~/.ssh/authorized_keys | ssh s1 'cat >> .ssh/authorized_keys'
 ```
-	Above command is bit confusing. what we are doing in here is we cat the current machines authorized_keys, then pipe it to ssh of s1 and cat again what we are piping in s1 and append it to s1s .ssh/authorized_keys
-	Anyway at the end each vms authorized_keys should contain 4 vms pub keys
+
+>Above command is bit confusing. what we are doing in here is we cat the current machines authorized_keys, then pipe it to ssh of s1 and cat again what we are piping in s1 and append it to s1s .ssh/authorized_keys
+>Anyway at the end each vms authorized_keys should contain 4 vms pub keys
+
 ```
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE3Sau+adWCWPwXW1dDhM1oSQptc6QebPTfpUw/tpU8qC2WEB5CfvxE8CxpcQ+Sf/PW0z1WNOZ1b+Q6DuS+jL/Ps0gF0tOOwSFrUAxYgy3c4KDVss48V8NSyQqe0AEjqhYFAvwYHnZ/ihqsXlQhoLEOKRUAI8Cd8rKgdHCbnUCDJrLvhTP1WD4iaIY5pS/a32o0A895hQnFFnUR/f2cSRs/GSgY5nHsTd5rbR5CWnzmCwdMoLsuNE+LPISsuM7t9rtDj9Bonar5BgJM/ztiv9FmKJwltlyTmX+icSmF+wNGH8n8kDKoDEm8rteVjS18H4Dk0CRdt2Uph3S0a5w7kVX chams@s1
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkwaCqmZCqPFDJIp2EYq9H4HgfR9ESi6p6vgPIjTh+SHmp3q285KuLa3ZoInEroRT4NCnVuTCIxdvOFqnHcSoQGH7oG3RFnZLy9aCrKVP2l+fH013rhMkwY674oS7jk5LvHImgFpF3oidPwXXQ7jEIf1OZJ3Jlt8x034Pt36VdQIejFww9cL7vIa0oIurxNIA9QNfwNiA1ncsjZN/sXuLVry1wDHSoPe4MTeW0vG6IkUOneXk+t7dwjyapWkh/HMZ4kLSaYODO2/L82DYdxdNCDEWl2BcC9Kjk34xK7CzkawqCW1H2x5LN0eJRmprRcxS/FMIf09XyEe2jk0BWHd4H chams@s2
