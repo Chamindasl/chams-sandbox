@@ -198,4 +198,5 @@ Great. Now we have fulling working cluster with 4 vms. Will fine tune bit to con
 
 Happy clustering. :)
 
-
+See the image 
+![Image of Running 4 vms and accessing through ssh](https://github.com/Chamindasl/chams-sandbox/blob/master/big-data-cluster-creation/etc/2015-09-30%2001_33_48-s4%20%5BRunning%5D%20-%20Oracle%20VM%20VirtualBox.png)
