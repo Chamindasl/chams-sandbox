@@ -148,7 +148,7 @@ ping s3
 ping s4
 ```
 
-#### 7. passwordless ssh
+#### 8. passwordless ssh
 passwordless ssh means, key based ssh. 
 First will see a known example. When we need to push something to github without our password , what we will do is we paste our public key in github. 
 So when we push, git sends our public key information to github and github can identify us using the key we have given to github early.  
@@ -179,4 +179,23 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDClKMmYtT73pdRaHrEumxLpTX1MY5BSs56aBKJ35hr
 ```
 
 All set. you should be able to ssh each other. If not working restart and try. Still not working set permissions of .ssh and .ssh/authorized_keys
-	
+
+
+#### 9. Textmode boot for VMs
+
+Great. Now we have fulling working cluster with 4 vms. Will fine tune bit to consume less memory. We no need xserver in all vms. Will keep xserver is s1 but stop and uninstall xserver and boot up without gui (text mode) on other vms. xserver of distribution what i am using is called Mate Desktop Manager (mdm)
+
+>>only on s2, s3, s4
+
+
+1. `sudo gedit /etc/default/grub` and find param `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"` and append `text` at the end. finally that would be like this `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"`.
+2. `sudo update-grub`
+3. `sudo poweroff`
+4. set the memory of vm to 512 mb and deselect 3D Video acceleration
+5. power of vm
+6. `sudo apt-get remove mdm`
+7. verify you can access s2,3,4 from s1
+
+Happy clustering. :)
+
+
