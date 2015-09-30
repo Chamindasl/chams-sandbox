@@ -191,7 +191,7 @@ Great. Now we have fulling working cluster with 4 vms. Will fine tune bit to con
 1. `sudo gedit /etc/default/grub` and find param `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"` and append `text` at the end. finally that would be like this `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"`.
 2. `sudo update-grub`
 3. `sudo poweroff`
-4. set the memory of vm to 512 mb and deselect 3D Video acceleration
+4. set the memory of vm to 256 mb (or may be 512) and deselect 3D Video acceleration
 5. power of vm
 6. `sudo apt-get remove mdm`
 7. verify you can access s2,3,4 from s1
