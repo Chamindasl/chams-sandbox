@@ -97,30 +97,13 @@ function TrickyWordCtrl($scope, $timeout) {
 // The horse is big and Dad is big says Max.\
 // I the he she me we be was to do are all you your come some said here there they go no so my one by like have live give
 
-          $scope.sections.tw.items = $scope.text.split(" ");
+          var splited = $scope.text.split(" ");
+          for (var i = 0; i < splited.length; i++) {
+            if ($scope.sections.tw.items.indexOf(splited[i]) === -1) {
+                $scope.sections.tw.items.push(splited[i]);
+            }
+          }
 
-//        $scope.sections.tw.items = ["Sethuki",
-//                                       "Ashvin",
-//                                       "Dad",
-//                                       "Max",
-//                                       "Kitty",
-//                                       "swing",
-//                                       "too",
-//                                       "the",
-//                                       "I",
-//                                       "run",
-//                                       "they",
-//                                       "she",
-//                                       "he",
-//                                       "me",
-//                                       "we",
-//                                       "be",
-//                                       "happy",
-//                                       "gets",
-//                                       "get",
-//                                       "be",
-//                                       "be",
-//                                      ""];
     }
 
     $scope.fillNum = function () {
@@ -138,19 +121,17 @@ function TrickyWordCtrl($scope, $timeout) {
     }
 
     $scope.updateSection = function() {
-        $scope.words = $scope.selectedSection.items;
-        $scope.word = $scope.words[Math.floor(Math.random()* $scope.words.length)];
+        $scope.words = angular.copy($scope.selectedSection.items);
+        $scope.next();
     }
 
     $scope.next = function() {
-        $scope.temp = "";
-        do {
-            $scope.temp = $scope.words[Math.floor(Math.random()* $scope.words.length)];
-            console.log($scope.temp );
-            console.log($scope.word );
-            console.log($scope.word == $scope.temp);
-        } while ($scope.temp==="" || $scope.word === $scope.temp);
-        $scope.word=$scope.temp;
+        if ($scope.words.length<=0) {
+            $scope.words = angular.copy($scope.selectedSection.items);
+        }
+        $scope.word = $scope.words[Math.floor(Math.random()* $scope.words.length)];
+        $scope.words.splice($scope.words.indexOf($scope.word), 1);
+
     }
 
     $scope.auto = function() {
