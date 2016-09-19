@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<link href="app/css/main.css" rel="stylesheet">
+<script src="app/lib/angular.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/TrickyWordCtrl.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="TrickyWordCtrl">
+
+    <div id="top">
+        {{word}}
+    </div>
+
+    <div class="center">
+        <table>
+            <tr>
+                <td><a href="#" class="button" ng-click="next()">Next</a></td>
+                <td><label>Auto:<input type="checkbox" ng-model="autoPlay" ng-click="auto()"></label></td>
+                <td><label>Section : <select ng-model="selectedSection" ng-options="x.name for x in sections" ng-change="updateSection()"></select></label></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
