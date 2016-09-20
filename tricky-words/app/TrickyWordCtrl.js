@@ -129,7 +129,7 @@ function TrickyWordCtrl($scope, $timeout) {
         if ($scope.words.length<=0) {
             $scope.words = angular.copy($scope.selectedSection.items);
         }
-        $scope.word = $scope.words[Math.floor(Math.random()* $scope.words.length)];
+        $scope.word = $scope.words[Math.floor(Math.random() * $scope.words.length)];
         $scope.words.splice($scope.words.indexOf($scope.word), 1);
 
     }
