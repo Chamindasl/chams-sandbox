@@ -11,14 +11,14 @@
 }
 
 .p_mid {
-   font-size: 100px;
+   font-size: 130px;
    color: white;
-
+   margin: 30px;
 }
 
 
 .span_highlight {
-   font-size: 100px;
+   font-size: 130px;
    color: red;
    border:5px solid orange;
 }
@@ -26,6 +26,7 @@
 .p_mid_large {
    font-size: 350px;
    color: darkorange;
+   margin: 0px;
 }
 
 .button {

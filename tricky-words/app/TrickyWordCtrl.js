@@ -141,11 +141,11 @@ function TrickyWordCtrl($scope, $timeout) {
 
         var line = $scope.words[$scope.readingLineIndex].split(" ");
 
+        $scope.wordMid = line[$scope.readingWordIndex].trim()
+
         for (var i = 0; i < $scope.readingWordIndex; i++) {
             $scope.lineLeft = $scope.lineLeft + " " + line [i];
         }
-
-        $scope.wordMid = line[$scope.readingWordIndex]
 
         for (var i = $scope.readingWordIndex + 1 ; i < line.length; i++) {
             $scope.lineRight = $scope.lineRight + " " + line[i];
@@ -160,6 +160,10 @@ function TrickyWordCtrl($scope, $timeout) {
 
         if ($scope.readingLineIndex >= $scope.words.length) {
             $scope.readingLineIndex == 0;
+        }
+
+        if ($scope.wordMid.length<=0) {
+            $scope.next();
         }
 
     }
