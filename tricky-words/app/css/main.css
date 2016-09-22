@@ -11,15 +11,16 @@
 }
 
 .p_mid {
-   font-size: 50px;
+   font-size: 100px;
    color: white;
+
 }
 
 
 .span_highlight {
-   font-size: 50px;
-   color: darkorange;
-   background-color: white
+   font-size: 100px;
+   color: red;
+   border:5px solid orange;
 }
 
 .p_mid_large {

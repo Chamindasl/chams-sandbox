@@ -8,7 +8,8 @@
 <div ng-app="myApp" ng-controller="TrickyWordCtrl">
 
     <div class="top">
-        <p class="p_mid">{{word}} <span class="span_highlight">{{word}}</span> {{word}}</p>
+        <p ng-if="wordMid.length>0" class="p_mid">{{lineLeft}} <span class="span_highlight">{{wordMid}}</span> {{lineRight}}</p>
+        <p ng-if="word.length>0" class="p_mid_large">{{word}}</p>
     </div>
 
     <div class="center">
@@ -20,6 +21,8 @@
 
             </tr>
         </table>
+        @ {{word.length}} @ {{word}}
+        {{wordMid.length}} @ {{wordMid}}
 </div>
 </body>
 </html>
