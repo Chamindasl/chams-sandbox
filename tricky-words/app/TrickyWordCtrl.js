@@ -26,6 +26,11 @@ function TrickyWordCtrl($scope, $timeout) {
             name: 'Reading Big Horse',
             items : "Max is at the park. Max's dad is at the park. Kitty is at the park too. I can race you to the swings says Max. Max and Kitty run to the swings. Dad run too. Max gets to the swings. Look I am at the swrings says Max. Kitty and Max get onto the swings. Dad can not get onto the swings. He is too big. Can you push me syas Max. Can you push me says Kitty. Dad pushes Kitty and Max. They are going up. Max sees a red slide. I can race you to the red slide says Max. Max and Kitty run to the red slide. Dad runs too. Kitty gets to the red slide. Look I am at the red slide says Ktty. Kitty and Max get onto the slide. Dad cannot get onto the slide. He is too big. Kitty is going down. Max is going down too. Look out Kitty says Max. Here I am. I can rece you to the see-saw says Kitty. Kitty and Max run to the see-saw. Dan runs too. Ktty jumps onto the see-saw. Max jumps onto the see-saw too. Dan cannot get onto the see-saw. He is too big. Kitty is going up on the see-saw. Max is going down on the see-saw. They are going up and down on the see-saw. Max sees a little horse. He jumps down and runs to the little horse. Look out kitty says dad. Kitty and Dan run to Max. Max is on the little horse. Kitty gets onto the little horse too. Dad cannot get onto the littel horse. He is too big. Dad pushes the little horse. This is fun says Kitty. This is fun says Max. Kitty sees a big horse. Look says Kitty. I can see a big horse. Kitty runs to the big horse. Max sees the big horse and run to it. Dad runs to the big horse too. can I pet the big horse say Kitty. Can I pet the big horse says Max. Yes can pet the big horse says Dad. Max and Kitty cannot pet the big horse. The horse is too big. The big horse looks down at kitty and Max. They look up at the big horse. They cannot pet the big horse. Dan can pet the big horse. The horse is big and Dad is big. Up up says Dad. The horse is big and Dad is big says Max.".split("."),
             isReading: true
+        },
+        readingSinhala :{
+            name: 'Reading සිංහල',
+            items : "අපි බත් කමු. අම්මා, මම බත් කෑවා. මල්ලි බත් කෑවේ නෑ.".split("."),
+            isReading: true
         }
     }
 
