@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  ub_1:
+    image: 'chamindasl/ubuntu:latest'
+    hostname: "ub_1"
+    networks:
+      vpcbr:
+        ipv4_address: 172.16.238.11
+    tty: true
+
+  ub_2:
+    image: 'chamindasl/ubuntu:latest'
+    hostname: "ub_2"
+    networks:
+      vpcbr:
+        ipv4_address: 172.16.238.12
+    tty: true
+
+  ub_3:
+    image: 'chamindasl/ubuntu:latest'
+    hostname: "ub_3"
+    networks:
+      vpcbr:
+        ipv4_address: 172.16.238.13
+    tty: true
+
+  ub_4:
+    image: 'chamindasl/ubuntu:latest'
+    hostname: "ub_4"
+    networks:
+      vpcbr:
+        ipv4_address: 172.16.238.14
+    tty: true
+
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+         config:
+            - subnet: 172.16.238.0/24
+

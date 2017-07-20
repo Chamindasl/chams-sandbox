@@ -1,0 +1,16 @@
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.16.238.11	ub_1
+172.16.238.12	ub_2
+172.16.238.13	ub_3
+172.16.238.14	ub_4
+172.16.238.15	ub_5
+172.16.238.16	ub_6
+172.16.238.17	ub_7
+172.16.238.18	ub_8
+172.16.238.19	ub_9
+
