@@ -8,20 +8,20 @@ RUN apt-get update \
         openssh-server
 
 RUN mkdir /var/run/sshd \
-    && useradd -G sudo -m u1 \
-    && echo "p\np\n" | passwd u1
+    && useradd -G sudo -m chams \
+    && echo "p\np\n" | passwd chams
 
-ADD id_rsa /home/u1/.ssh/id_rsa 
-ADD id_rsa.pub /home/u1/.ssh/id_rsa.pub 
-ADD id_rsa.pub /home/u1/.ssh/authorized_keys 
+ADD id_rsa /home/chams/.ssh/id_rsa 
+ADD id_rsa.pub /home/chams/.ssh/id_rsa.pub 
+ADD id_rsa.pub /home/chams/.ssh/authorized_keys 
 ADD hosts /etc/hosts
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
-RUN chown u1:u1 /home/u1/.ssh/id_rsa && \
-    chown u1:u1 /home/u1/.ssh/id_rsa.pub && \
-    chown u1:u1 /home/u1/.ssh/authorized_keys && \
-    chmod 600 /home/u1/.ssh/id_rsa && \
+RUN chown chams:chams /home/chams/.ssh/id_rsa && \
+    chown chams:chams /home/chams/.ssh/id_rsa.pub && \
+    chown chams:chams /home/chams/.ssh/authorized_keys && \
+    chmod 600 /home/chams/.ssh/id_rsa && \
     /usr/bin/ssh-keygen -A && \
     export JAVA_HOME
 
