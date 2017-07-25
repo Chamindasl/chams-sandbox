@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  ub_1:
+    image: 'chamindasl/hadoop:latest'
+    hostname: "ub_1"
+    networks:
+      vpcbr:
+        ipv4_address: 172.16.238.11
+    tty: true
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+         config:
+            - subnet: 172.16.238.0/24
+
