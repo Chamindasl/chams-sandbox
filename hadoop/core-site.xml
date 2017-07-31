@@ -1,7 +1,7 @@
 <configuration>
    <property>
       <name>fs.default.name</name>
-      <value>hdfs://ub_1:9000</value>
+      <value>hdfs://ub1:9000</value>
    </property>
    <property>
       <name>hadoop.tmp.dir</name>
